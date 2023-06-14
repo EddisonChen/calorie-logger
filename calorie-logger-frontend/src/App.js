@@ -12,15 +12,15 @@ function App() {
 
   const { user, isLoading, isAuthenticated } = useAuth0()
 
-  const showUser = () => {
-    if (isAuthenticated) {
-      console.log(user.name)
-    } else {
-      console.log("no")
-    }
-  }
+  // const showUser = () => {
+  //   if (isAuthenticated) {
+  //     console.log(user.name)
+  //   } else {
+  //     console.log("no")
+  //   }
+  // }
 
-  useEffect(showUser, [])
+  // useEffect(showUser, [])
 
   return (
     <div>
