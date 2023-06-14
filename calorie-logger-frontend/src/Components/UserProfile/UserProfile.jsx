@@ -19,7 +19,8 @@ const UserProfile = () => {
         age: '',
         activityLevel: '1.2'
     });
-    const [tdee, setTdee] = useState();
+    const [tdee, setTdee] = useState(null);
+    const [goalCalories, setGoalCalories] = useState(null);
     const [userGoal, setUserGoal] = useState();
     const [heightInput, setHeightInput] = useState()
 
@@ -78,11 +79,31 @@ const UserProfile = () => {
     const changeUnitType = (event) => {
         setUnitType(event.target.value)   
     }
+
     const changeUserGoal = (event) => {
         setUserGoal(event.target.value)
     }
 
-    console.log(unitType)
+    const calculateTdee = () => {
+        let convertedHeight = parseInt(userPhysicalAttributes.height);
+        let convertedWeight = parseInt(userPhysicalAttributes.weight);
+        let sexValue = null;
+        if (unitType == "imperial") {
+            convertedHeight = convertedHeight*2.54;
+            convertedWeight = convertedWeight*.454;
+        }
+        userPhysicalAttributes.sex == "male" ? sexValue = 5 : sexValue = -161
+        setTdee((((10*convertedWeight) + (6.25*convertedHeight) - 5*parseInt(userPhysicalAttributes.age) + sexValue) * userPhysicalAttributes.activityLevel).toFixed())
+        setGoalCalories(parseInt(tdee) + parseInt(userGoal))
+    }
+
+    const changeGoalCalories = (event) => {
+        if (event.target.innerHTML == "-") {
+            setGoalCalories(goalCalories - 10);
+        } else {
+            setGoalCalories(goalCalories + 10)
+        }
+    }
 
     return (
             <div>
@@ -118,9 +139,18 @@ const UserProfile = () => {
                         <option value="750">Gain 1.5 LBs/.68 KGs Per Week</option>
                         <option value="1000">Gain 2 LBs/.91 KGs Per Week</option>
                     </select>
-                    <input type="submit"></input>
+                    <button type="button" onClick={calculateTdee}>Update</button>
                 </form>
                 
+                {tdee == null ? '' : 
+                <div>
+                    <p>Your estimated total daily energy expenditure is {tdee} calories per day.</p>
+                    <p>In accordance with your goals, you should eat {goalCalories} calories per day.</p>
+                    <h3>Adjust Calories</h3>
+                    <button onClick={changeGoalCalories}>-</button>
+                    {goalCalories}
+                    <button onClick={changeGoalCalories}>+</button>
+                </div>}
                 
             </div>
     )
