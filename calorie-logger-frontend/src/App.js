@@ -3,8 +3,10 @@ import LoginButton from './Components/LoginButton/LoginButton';
 import LogoutButton from './Components/LogoutButton/LogoutButton';
 import UserProfile from './Components/UserProfile/UserProfile';
 import AllRoutes from './Components/AllRoutes/AllRoutes';
+import NavBar from './Containers/NavBar/NavBar';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect} from 'react';
+import Navbar from './Containers/NavBar/NavBar';
 
 function App() {
 
@@ -22,10 +24,11 @@ function App() {
 
   return (
     <div>
-      <LoginButton/>
+      {/* <LoginButton/>
       <LogoutButton/>
-      {isAuthenticated && <UserProfile/>}
+      {isAuthenticated && <UserProfile/>} */}
       {/* <AllRoutes/> */}
+      <NavBar/>
     </div>
   );
 }
