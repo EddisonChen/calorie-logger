@@ -2,7 +2,10 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import {useState, useEffect} from 'react';
 
-const UserProfile = () => {
+const UserProfile = (props) => {
+
+    const {goalCalories, setGoalCalories, macronutrients, setMacronutrients} = props;
+
     const { user, isAuthenticated, isLoading } = useAuth0;
 
     // if (isLoading) {
@@ -20,8 +23,7 @@ const UserProfile = () => {
         activityLevel: '1.2'
     });
     const [tdee, setTdee] = useState(null);
-    const [goalCalories, setGoalCalories] = useState(null);
-    const [userGoal, setUserGoal] = useState();
+    const [userGoal, setUserGoal] = useState(tdee);
     const [heightInput, setHeightInput] = useState()
 
     const changeUserPhysicalAttributes = (event) => {
@@ -94,8 +96,11 @@ const UserProfile = () => {
         }
         userPhysicalAttributes.sex == "male" ? sexValue = 5 : sexValue = -161
         setTdee((((10*convertedWeight) + (6.25*convertedHeight) - 5*parseInt(userPhysicalAttributes.age) + sexValue) * userPhysicalAttributes.activityLevel).toFixed())
-        setGoalCalories(parseInt(tdee) + parseInt(userGoal))
     }
+
+    useEffect(()=> {
+        setGoalCalories(parseInt(tdee) + parseInt(userGoal))
+    }, [tdee])
 
     const changeGoalCalories = (event) => {
         if (event.target.innerHTML == "-") {
@@ -150,6 +155,25 @@ const UserProfile = () => {
                     <button onClick={changeGoalCalories}>-</button>
                     {goalCalories}
                     <button onClick={changeGoalCalories}>+</button>
+                    {/* <p>Your macronutrient breakdown is: {macronutrients.carbohydrate}g carbohydrates, {macronutrients.protein}g protein, {macronutrients.fat}g fat</p> */}
+
+                    <table>
+                        <tr>
+                            <th>Carbohydrate</th>
+                            <th>Protein</th>
+                            <th>Fat</th>
+                        </tr>
+                        <tr>
+                            <td>40%</td>
+                            <td>30%</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td>{((macronutrients.carbohydrate*goalCalories)/4).toFixed()}g</td>
+                            <td>{((macronutrients.protein*goalCalories)/4).toFixed()}g</td>
+                            <td>{((macronutrients.fat*goalCalories)/9).toFixed()}g</td>
+                        </tr>
+                    </table>
                 </div>}
                 
             </div>

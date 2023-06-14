@@ -27,7 +27,7 @@ function App() {
       {/* <LoginButton/>
       <LogoutButton/>
       {isAuthenticated && <UserProfile/>} */}
-      {/* <AllRoutes/> */}
+      <AllRoutes/>
       <NavBar/>
     </div>
   );

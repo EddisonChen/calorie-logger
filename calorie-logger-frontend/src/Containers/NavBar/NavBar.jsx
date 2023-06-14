@@ -1,6 +1,7 @@
 import './NavBar.css';
 import UserProfile from '../../Components/UserProfile/UserProfile';
 import { User } from '@auth0/auth0-react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -11,7 +12,8 @@ const NavBar = () => {
             // log
             // nutrient info
             // add food */}
-            <UserProfile/>
+            {/* <UserProfile/> */}
+            <Link to="/userprofile">Profile</Link>
         </nav>
     )
 }
