@@ -1,10 +1,11 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import {useState, useEffect} from 'react';
+import './UserProfile.css';
 
 const UserProfile = (props) => {
 
-    const {goalCalories, setGoalCalories, macronutrients, setMacronutrients} = props;
+    const {goalCalories, setGoalCalories, macronutrients} = props;
 
     const { user, isAuthenticated, isLoading } = useAuth0;
 
@@ -87,7 +88,8 @@ const UserProfile = (props) => {
     }
 
     const calculateTdee = () => {
-        let convertedHeight = parseInt(userPhysicalAttributes.height);
+        if (userPhysicalAttributes.age !== '' && userPhysicalAttributes.height !== '' && userPhysicalAttributes.weight !== '' && userPhysicalAttributes.sex !== '') {
+            let convertedHeight = parseInt(userPhysicalAttributes.height);
         let convertedWeight = parseInt(userPhysicalAttributes.weight);
         let sexValue = null;
         if (unitType == "imperial") {
@@ -96,6 +98,7 @@ const UserProfile = (props) => {
         }
         userPhysicalAttributes.sex == "male" ? sexValue = 5 : sexValue = -161
         setTdee((((10*convertedWeight) + (6.25*convertedHeight) - 5*parseInt(userPhysicalAttributes.age) + sexValue) * userPhysicalAttributes.activityLevel).toFixed())
+        }  
     }
 
     useEffect(()=> {
@@ -147,7 +150,7 @@ const UserProfile = (props) => {
                     <button type="button" onClick={calculateTdee}>Update</button>
                 </form>
                 
-                {tdee == null ? '' : 
+                {tdee == null ? <p>Please fill out the entire form.</p> : 
                 <div>
                     <p>Your estimated total daily energy expenditure is {tdee} calories per day.</p>
                     <p>In accordance with your goals, you should eat {goalCalories} calories per day.</p>
@@ -155,8 +158,7 @@ const UserProfile = (props) => {
                     <button onClick={changeGoalCalories}>-</button>
                     {goalCalories}
                     <button onClick={changeGoalCalories}>+</button>
-                    {/* <p>Your macronutrient breakdown is: {macronutrients.carbohydrate}g carbohydrates, {macronutrients.protein}g protein, {macronutrients.fat}g fat</p> */}
-
+                    
                     <table>
                         <tr>
                             <th>Carbohydrate</th>
