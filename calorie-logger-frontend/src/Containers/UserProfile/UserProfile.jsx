@@ -40,8 +40,8 @@ const UserProfile = (props) => {
         } else if (unitType == 'imperial') {
             setHeightInput(
                 <label>Height
-                    <select name="height" onChange={changeUserPhysicalAttributes}>
-                        <option hidden disabled selected value> -- Select Your Height --</option>
+                    <select name="height" onChange={changeUserPhysicalAttributes} defaultValue={"DEFAULT"}>
+                        <option value="DEFAULT" disabled> -- Select Your Height --</option>
                         <option value="55">4'7"</option>
                         <option value="56">4'8"</option>
                         <option value="57">4'9"</option>
@@ -135,8 +135,8 @@ const UserProfile = (props) => {
                         <option value="1.725">Highly Active</option>
                         <option value="1.9">Athlete</option>
                     </select>
-                    <select name="goal" onChange={changeUserGoal}>
-                        <option hidden disabled selected value>-- Select Your Goal --</option>
+                    <select name="goal" onChange={changeUserGoal} value={"DEFAULT"}>
+                        <option disabled value="DEFAULT">-- Select Your Goal --</option>
                         <option value="-1000">Lose 2 LBs/.91 KGs Per Week</option>
                         <option value="-750">Lose 1.5 LBs/.68 KGs Per Week</option>
                         <option value="-500">Lose 1 LBs/.45 KGs Per Week</option>
@@ -160,6 +160,7 @@ const UserProfile = (props) => {
                     <button onClick={changeGoalCalories}>+</button>
                     
                     <table>
+                        <tbody>
                         <tr>
                             <th>Carbohydrate</th>
                             <th>Protein</th>
@@ -175,6 +176,7 @@ const UserProfile = (props) => {
                             <td>{((macronutrients.protein*goalCalories)/4).toFixed()}g</td>
                             <td>{((macronutrients.fat*goalCalories)/9).toFixed()}g</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>}
                 

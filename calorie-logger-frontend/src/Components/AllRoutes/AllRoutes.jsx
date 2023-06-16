@@ -17,14 +17,6 @@ const AllRoutes = (props) => {
     });
 
     const generateDates = () => {
-        // const startDate = new Date();
-        // const dates = [];
-        // for (let i = 0; i < 365; i ++) {
-        //     const currentDate = new Date(startDate);
-        //     currentDate.setDate(startDate.getDate() + i);
-        //     dates.push(currentDate.toISOString().split('T')[0]);
-        // }
-        // return dates;
         const currentDate = new Date();
         const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())
         const oneYearFromNow = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate())
@@ -43,7 +35,7 @@ const AllRoutes = (props) => {
 
     const renderDailyLog = dates.map((date) => {
         return (
-            <Route path={`/log/${date}`} element={<DailyLog
+            <Route path={`/log/${date}`} key={date} element={<DailyLog 
                 date = {date}
                 goalCalories={goalCalories}
                 macronutrients={macronutrients}/>}></Route>
@@ -59,9 +51,6 @@ const AllRoutes = (props) => {
                 setGoalCalories={setGoalCalories}
                 macronutrients={macronutrients}/>}/>
             {renderDailyLog}
-            {/* <Route path={`/log/:date`} element={<DailyLog
-                goalCalories={goalCalories}
-                macronutrients={macronutrients}/>}></Route> */}
         </Routes>
     )
 }
