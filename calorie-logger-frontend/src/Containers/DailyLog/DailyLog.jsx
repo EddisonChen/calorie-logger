@@ -18,15 +18,26 @@ const DailyLog = (props) => {
     const [pastDate, setPastDate] = useState(yesStr)
     const [futureDate, setFutureDate] = useState(tomStr)
 
-    
-
-    console.log(tomStr)
-
     return (
         <div>
-            <h1>Daily log: {date}</h1>
-            <Link to={`/log/${pastDate}`}>Yesterday</Link>
-            <Link to={`/log/${futureDate}`}>Tomorrow</Link>
+            <div>
+                <Link to={`/log/${pastDate}`}>{`<`}</Link>
+                <h1>Daily log: {date}</h1>
+                <Link to={`/log/${futureDate}`}>{`>`}</Link>
+            </div>
+            <div>
+                <h3>Breakfast</h3>
+            </div>
+            <div>
+                <h3>Lunch</h3>
+            </div>
+            <div>
+                <h3>Dinner</h3>
+            </div>
+            <div>
+                <h3>Snack</h3>
+            </div>
+            
         </div>
     )
 }
