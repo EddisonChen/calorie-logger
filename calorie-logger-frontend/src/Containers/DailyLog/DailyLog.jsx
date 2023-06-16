@@ -6,24 +6,27 @@ const DailyLog = (props) => {
 
     const {date, goalCalories, macronutrients} = props;
 
-    const curDate = new Date()
-    const curDateStr = curDate.toLocaleDateString()
+    const currentDate = new Date(date);
 
-    const [yesterdayDate, setYesterdayDate] = useState(null);
+    const yesterdayDate = new Date(currentDate.setDate(currentDate.getDate()-1))
+    const yesStr = yesterdayDate.toLocaleDateString()
 
-    const handleBackClick = () => {
-        const previousDate = new Date(yesterdayDate);
-        previousDate.setDate(previousDate.getDate() - 1);
-        setYesterdayDate(previousDate.toLocaleDateString());
-    };
+    const tomorrowDate = new Date(currentDate)
+    tomorrowDate.setDate(currentDate.getDate() + 2)
+    const tomStr = tomorrowDate.toLocaleDateString()
 
-    const yesterdayDateString = yesterdayDate || curDateStr
+    const [pastDate, setPastDate] = useState(yesStr)
+    const [futureDate, setFutureDate] = useState(tomStr)
+
+    
+
+    console.log(tomStr)
 
     return (
         <div>
             <h1>Daily log: {date}</h1>
-            <Link to={`/log/${yesterdayDateString}`} onClick={handleBackClick}>Yesterday</Link>
-            {/* <Link to={`/log/${tomorrowDateString}`}>Tomorrow</Link> */}
+            <Link to={`/log/${pastDate}`}>Yesterday</Link>
+            <Link to={`/log/${futureDate}`}>Tomorrow</Link>
         </div>
     )
 }

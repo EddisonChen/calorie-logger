@@ -44,6 +44,7 @@ const AllRoutes = (props) => {
     const renderDailyLog = dates.map((date) => {
         return (
             <Route path={`/log/${date}`} element={<DailyLog
+                date = {date}
                 goalCalories={goalCalories}
                 macronutrients={macronutrients}/>}></Route>
         )
