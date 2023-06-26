@@ -1,6 +1,7 @@
 import './DailyLog.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import AddFood from '../../Components/AddFood/AddFood';
 
 const DailyLog = (props) => {
 
@@ -33,15 +34,19 @@ const DailyLog = (props) => {
             </div>
             <div>
                 <h3>Breakfast</h3>
+                <AddFood/>
             </div>
             <div>
                 <h3>Lunch</h3>
+                <AddFood/>
             </div>
             <div>
                 <h3>Dinner</h3>
+                <AddFood/>
             </div>
             <div>
                 <h3>Snack</h3>
+                <AddFood/>
             </div>
             
         </div>
