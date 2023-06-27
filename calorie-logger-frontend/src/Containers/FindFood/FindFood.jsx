@@ -16,11 +16,15 @@ const FindFood = () => {
             contentType: 'application/json',
         })
         const data = await response.json()
-        const mappedFoodItems = data.map((item) => {
+        console.log(data.hints)
+        const mappedFoodItems = data.hints.map((item) => {
             return (
-                // <li>{item.name}</li>
-                <IndividualFood 
-                    item={item}/>
+                // <IndividualFood 
+                //     item={item}/>
+                <div>
+                    <h3>{item.food.label}</h3>
+                    <p>{item.food.brand}, {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
+                </div>
             )
         })
         setFoodList(mappedFoodItems)
