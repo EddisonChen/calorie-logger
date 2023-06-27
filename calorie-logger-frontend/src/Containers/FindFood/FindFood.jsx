@@ -6,35 +6,41 @@ import IndividualFood from '../IndividualFood/IndividualFood';
 const FindFood = () => {
 
     const [foodList, setFoodList] = useState()
-    const [searchType, setSearchType] = useState("generic-foods")
+    const [searchValue, setSearchValue] = useState()
 
-    async function foodFetch(event) {
+    const updateSearchValue = (event) => {
         const input = event.target.value
         const cleanInput = input.replace(/\s/g, "%20")
-        const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?app_id=${apiInfo.appId}&app_key=%20${apiInfo.apiKey}%09&ingr=${cleanInput}&nutrition-type=logging`, {
-            method: "GET",
-            contentType: 'application/json',
+        setSearchValue(cleanInput)
+    }
+
+
+    async function foodFetch(event) {
+        const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?app_id=${apiInfo.appId}&app_key=%20${apiInfo.apiKey}%09&ingr=${searchValue}&nutrition-type=logging`, {
+        method: "GET",
+        contentType: 'application/json',
         })
         const data = await response.json()
         console.log(data.hints)
         const mappedFoodItems = data.hints.map((item) => {
             return (
-                // <IndividualFood 
-                //     item={item}/>
-                <div>
-                    <h3>{item.food.label}</h3>
-                    <p>{item.food.brand}, {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
-                </div>
+                <IndividualFood
+                    item={item}/>
             )
         })
         setFoodList(mappedFoodItems)
     }
 
+    // upc https://api.edamam.com/api/food-database/v2/parser?app_id=932a20f2&app_key=%20577cb6b0089814cd8e636dd9c2fc554a%09&upc=026200117058&nutrition-type=logging&category=packaged-foods
+
     console.log(foodList)
 
     return (
         <div>
-            <input type="text" placeholder="Search For Food" onChange={foodFetch}></input>
+            <div>
+                <input type="text" placeholder="Search For Food" onChange={updateSearchValue}></input>
+                <button onClick={foodFetch}>Search</button>
+            </div>
             <ul>
                 {foodList}
             </ul>
