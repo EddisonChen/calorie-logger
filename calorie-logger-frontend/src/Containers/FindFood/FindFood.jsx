@@ -16,7 +16,8 @@ const FindFood = (props) => {
         setSearchValue(cleanInput)
     }
 
-    async function foodFetch() {
+    async function foodFetch(event) {
+        event.preventDefault()
         const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?app_id=${apiInfo.appId}&app_key=%20${apiInfo.apiKey}%09&ingr=${searchValue}&nutrition-type=logging`, {
         method: "GET",
         contentType: 'application/json',
@@ -26,6 +27,7 @@ const FindFood = (props) => {
         const mappedFoodItems = data.hints.map((item) => {
             return (
                 <IndividualFood
+                    // key={item.food}
                     item={item}
                     mealType={mealType}
                     eatenFoodList={eatenFoodList}
@@ -49,8 +51,11 @@ const FindFood = (props) => {
             <div>
                 <h2>Add to {mealType}</h2>
                 <button onClick={switchToDailyLog}>Back</button>
-                <input type="text" placeholder="Search For Food" onChange={updateSearchValue}></input>
-                <button onClick={foodFetch}>Search</button>
+                <form>
+                    <input type="text" placeholder="Search For Food" onChange={updateSearchValue}></input>
+                    <input type="submit" onClick={foodFetch}></input>
+                </form>
+                
             </div>
             <ul>
                 {foodList}

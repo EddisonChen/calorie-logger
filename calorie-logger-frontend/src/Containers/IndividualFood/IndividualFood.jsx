@@ -25,22 +25,24 @@ const IndividualFood = (props) => {
     }
 
     const [displayNutrients, setDisplayNutrients] = useState({
+        mealType: mealType,
         name: item.food.label,
-        amount: foodWeight,
-        calories: (nutritionPerGram.calories*foodWeight),
-        protein: (nutritionPerGram.protein*foodWeight),
-        fat: (nutritionPerGram.fat*foodWeight),
-        carbohydrate: (nutritionPerGram.carbohydrate*foodWeight)
+        amount: parseInt(foodWeight),
+        calories: parseInt(nutritionPerGram.calories*foodWeight),
+        protein: parseInt(nutritionPerGram.protein*foodWeight),
+        fat: parseInt(nutritionPerGram.fat*foodWeight),
+        carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight)
     })
 
     useEffect(() => {
         setDisplayNutrients({
+            mealType: mealType,
             name: item.food.label,
-            amount: foodWeight,
-            calories: (nutritionPerGram.calories*foodWeight),
-            protein: (nutritionPerGram.protein*foodWeight),
-            fat: (nutritionPerGram.fat*foodWeight),
-            carbohydrate: (nutritionPerGram.carbohydrate*foodWeight)
+            amount: parseInt(foodWeight),
+            calories: parseInt(nutritionPerGram.calories*foodWeight),
+            protein: parseInt(nutritionPerGram.protein*foodWeight),
+            fat: parseInt(nutritionPerGram.fat*foodWeight),
+            carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight)
         })
     }, [foodWeight])
 
@@ -63,10 +65,10 @@ const IndividualFood = (props) => {
                 <div onClick={changeClicked}>
                     <h3>{item.food.label}</h3>
                     <div >
-                        <h4>{(displayNutrients.calories).toFixed()} Calories</h4>
-                        <h5>{(displayNutrients.protein).toFixed()}g Protein</h5>
-                        <h5>{(displayNutrients.fat).toFixed()}g Fat</h5>
-                        <h5>{(displayNutrients.carbohydrate).toFixed()}g Carbohydrate</h5>
+                        <h4>{displayNutrients.calories} Calories</h4>
+                        <h5>{displayNutrients.protein}g Protein</h5>
+                        <h5>{displayNutrients.fat}g Fat</h5>
+                        <h5>{displayNutrients.carbohydrate}g Carbohydrate</h5>
                     </div>
                 </div>
                 <div>

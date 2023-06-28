@@ -31,33 +31,40 @@ const DailyLog = (props) => {
         snack: []
     })
 
-    console.log(eatenFoodList)
-
     const mappedBreakfast = eatenFoodList.breakfast.map((foodItem) => {
+
+        const removeFood = () => {
+            const temp = eatenFoodList
+            console.log(temp)
+            temp.breakfast.splice(temp.breakfast.indexOf(foodItem), 1)
+            setEatenFoodList(temp)
+        }
+
         return (
             <ul>
-                <li>{foodItem.name}</li>
+                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+                <button onClick={removeFood}>Remove</button>
             </ul>
         )
     })
     const mappedLunch = eatenFoodList.lunch.map((foodItem) => {
         return (
             <ul>
-                <li>{foodItem.name}</li>
+                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
             </ul>
         )
     })
     const mappedDinner = eatenFoodList.dinner.map((foodItem) => {
         return (
             <ul>
-                <li>{foodItem.name}</li>
+                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
             </ul>
         )
     })
     const mappedSnack = eatenFoodList.snack.map((foodItem) => {
         return (
             <ul>
-                <li>{foodItem.name}</li>
+                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
             </ul>
         )
     })
@@ -68,7 +75,7 @@ const DailyLog = (props) => {
         setMealType(event.target.value)
     }
 
-    return ( // add remove food button and show the list of foods per meal
+    return ( // be able to click on the food and adjust the amount
         <div>
             {findFoodClicked == false ? <div>
             <div>
