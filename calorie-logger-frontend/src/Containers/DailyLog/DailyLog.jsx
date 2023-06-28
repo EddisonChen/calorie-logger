@@ -2,10 +2,11 @@ import './DailyLog.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import FindFood from '../FindFood/FindFood';
+import AdjustFood from '../../Components/AdjustFood/AdjustFood';
 
 const DailyLog = (props) => {
 
-    const {date, goalCalories, macronutrients, index} = props;
+    const {date, goalCalories, macronutrients} = props;
 
     const currentDate = new Date(date);
 
@@ -31,14 +32,6 @@ const DailyLog = (props) => {
         snack: []
     })
 
-    // const removeFood = (mealType, index) => {
-    //     const tempObj = eatenFoodList
-    //     console.log(tempObj)
-    //     tempObj[mealType].splice(index, 1)
-    //     console.log(tempObj)
-    //     setEatenFoodList(tempObj)
-    // }
-
     const removeFood = (mealType, index) => {
         setEatenFoodList(prevList => {
           const updatedList = {
@@ -47,14 +40,26 @@ const DailyLog = (props) => {
           };
           return updatedList;
         });
-      };
-    
-      console.log(eatenFoodList)
+    };
+
+    // console.log(eatenFoodList)
+
+    const [selectedMealIndex, setSelectedMealIndex] = useState(null)
+
+    const changeClicked = (mealType, index) => {
+        setSelectedMealIndex(mealType + index)
+    }
 
     const mappedBreakfast = eatenFoodList.breakfast.map((foodItem, index) => {  
         return (
             <ul key = {index}>
-                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                <AdjustFood
+                    foodItem={foodItem}
+                    eatenFoodList={eatenFoodList}
+                    setEatenFoodList={setEatenFoodList}
+                    index={index}
+                    changeClicked={changeClicked}/> }
                 <button onClick={() => removeFood('breakfast', index)}>Remove</button>
             </ul>
         )
@@ -99,7 +104,7 @@ const DailyLog = (props) => {
                 <Link to={`/log/${futureDate}`}>{`>`}</Link>
             </div>
             <div>
-                <p>{goalCalories} - {dailyCaloriesEaten} = {remainingCalories}</p>
+                <p>{goalCalories} - {dailyCaloriesEaten} = {remainingCalories} calories remaining</p>
             </div>
             <div>
                 <h3>Breakfast</h3>

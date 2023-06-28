@@ -10,7 +10,6 @@ const IndividualFood = (props) => {
 
     const changeFoodWeight = (event) => {
         setFoodWeight(event.target.value)
-        
     }
 
     const changeClicked = () => {
