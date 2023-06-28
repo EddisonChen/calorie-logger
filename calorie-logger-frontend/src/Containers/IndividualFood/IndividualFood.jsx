@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 
 
 const IndividualFood = (props) => {
-    const {item, mealType} = props;
+    const {item, mealType, eatenFoodList, setEatenFoodList} = props;
 
     const [clicked, setClicked] = useState(false)
     const [foodWeight, setFoodWeight] = useState(item.measures[0].weight)
@@ -25,6 +25,8 @@ const IndividualFood = (props) => {
     }
 
     const [displayNutrients, setDisplayNutrients] = useState({
+        name: item.food.label,
+        amount: foodWeight,
         calories: (nutritionPerGram.calories*foodWeight),
         protein: (nutritionPerGram.protein*foodWeight),
         fat: (nutritionPerGram.fat*foodWeight),
@@ -33,6 +35,8 @@ const IndividualFood = (props) => {
 
     useEffect(() => {
         setDisplayNutrients({
+            name: item.food.label,
+            amount: foodWeight,
             calories: (nutritionPerGram.calories*foodWeight),
             protein: (nutritionPerGram.protein*foodWeight),
             fat: (nutritionPerGram.fat*foodWeight),
@@ -40,10 +44,12 @@ const IndividualFood = (props) => {
         })
     }, [foodWeight])
 
-    // const addFoodToLog = () => {
-    //     setMeal(meal => [...meal, displayNutrients])
-    //     changeClicked()
-    // }
+    const addFoodToLog = () => {
+        const tempEatenFoodList = eatenFoodList
+        tempEatenFoodList[mealType].push(displayNutrients)
+        setEatenFoodList(tempEatenFoodList)
+        changeClicked()
+    }
 
     return (
         <li>
@@ -66,7 +72,7 @@ const IndividualFood = (props) => {
                 <div>
                     <input type="number" defaultValue={item.measures[0].weight.toFixed()} onChange={changeFoodWeight}></input> Grams
                 </div>
-                <button>Add Food</button>
+                <button onClick={addFoodToLog}>Add Food</button>
                 
             </div>}
         </li>

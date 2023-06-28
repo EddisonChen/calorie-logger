@@ -5,7 +5,7 @@ import IndividualFood from '../IndividualFood/IndividualFood';
 
 const FindFood = (props) => {
 
-    const {mealType, setFindFoodClicked} = props;
+    const {mealType, setFindFoodClicked, eatenFoodList, setEatenFoodList} = props;
 
     const [foodList, setFoodList] = useState()
     const [searchValue, setSearchValue] = useState()
@@ -28,6 +28,8 @@ const FindFood = (props) => {
                 <IndividualFood
                     item={item}
                     mealType={mealType}
+                    eatenFoodList={eatenFoodList}
+                    setEatenFoodList={setEatenFoodList}
                     />
             )
         })
@@ -45,6 +47,7 @@ const FindFood = (props) => {
     return (
         <div>
             <div>
+                <h2>Add to {mealType}</h2>
                 <button onClick={switchToDailyLog}>Back</button>
                 <input type="text" placeholder="Search For Food" onChange={updateSearchValue}></input>
                 <button onClick={foodFetch}>Search</button>

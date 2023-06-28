@@ -24,12 +24,44 @@ const DailyLog = (props) => {
     const [findFoodClicked, setFindFoodClicked] = useState(false)
     const [mealType, setMealType] = useState()
 
-    // useEffect(() => {
-    //     for (let i = 0; i < )
+    const [eatenFoodList, setEatenFoodList] = useState({
+        breakfast: [],
+        lunch: [],
+        dinner: [],
+        snack: []
+    })
 
-    // }, [breakfastFood, lunchFood, dinnerFood, snackFood])
+    console.log(eatenFoodList)
 
-    // console.log(breakfastFood)
+    const mappedBreakfast = eatenFoodList.breakfast.map((foodItem) => {
+        return (
+            <ul>
+                <li>{foodItem.name}</li>
+            </ul>
+        )
+    })
+    const mappedLunch = eatenFoodList.lunch.map((foodItem) => {
+        return (
+            <ul>
+                <li>{foodItem.name}</li>
+            </ul>
+        )
+    })
+    const mappedDinner = eatenFoodList.dinner.map((foodItem) => {
+        return (
+            <ul>
+                <li>{foodItem.name}</li>
+            </ul>
+        )
+    })
+    const mappedSnack = eatenFoodList.snack.map((foodItem) => {
+        return (
+            <ul>
+                <li>{foodItem.name}</li>
+            </ul>
+        )
+    })
+
 
     const switchToFindFood = (event) => {
         setFindFoodClicked(true)
@@ -49,24 +81,30 @@ const DailyLog = (props) => {
             </div>
             <div>
                 <h3>Breakfast</h3>
+                {mappedBreakfast}
                 <button value="breakfast" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
                 <h3>Lunch</h3>
+                {mappedLunch}
                 <button value="lunch" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
                 <h3>Dinner</h3>
+                {mappedDinner}
                 <button value="dinner" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
                 <h3>Snack</h3>
+                {mappedSnack}
                 <button value="snack" onClick={switchToFindFood}>Add Food</button>
             </div>
             </div> : 
             <FindFood
                 mealType={mealType}
-                setFindFoodClicked={setFindFoodClicked}/>}
+                setFindFoodClicked={setFindFoodClicked}
+                eatenFoodList={eatenFoodList}
+                setEatenFoodList={setEatenFoodList}/>}
              
         </div>
     )
