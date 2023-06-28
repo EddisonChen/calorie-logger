@@ -1,6 +1,6 @@
 import './DailyLog.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FindFood from '../FindFood/FindFood';
 import AdjustFood from '../../Components/AdjustFood/AdjustFood';
 
@@ -32,6 +32,25 @@ const DailyLog = (props) => {
         snack: []
     })
 
+    useEffect(() => {
+        let sum = 0
+        for (let i = 0; i < eatenFoodList["breakfast"].length; i ++) {
+            sum += eatenFoodList["breakfast"][i].calories
+        }
+        for (let i = 0; i < eatenFoodList.lunch.length; i ++) {
+            sum += eatenFoodList.lunch[i].calories
+        }
+        for (let i = 0; i < eatenFoodList.dinner.length; i ++) {
+            sum += eatenFoodList.dinner[i].calories
+        }
+        for (let i = 0; i < eatenFoodList.snack.length; i ++) {
+            sum += eatenFoodList.snack[i].calories
+        }
+        setDailyCaloriesEaten(sum)
+    }, [eatenFoodList.breakfast, eatenFoodList.lunch, eatenFoodList.dinner, eatenFoodList.snack])
+
+    console.log(dailyCaloriesEaten)
+
     const removeFood = (mealType, index) => {
         setEatenFoodList(prevList => {
           const updatedList = {
@@ -50,6 +69,8 @@ const DailyLog = (props) => {
         setSelectedMealIndex(mealType + index)
     }
 
+    console.log(selectedMealIndex)
+
     const mappedBreakfast = eatenFoodList.breakfast.map((foodItem, index) => {  
         return (
             <ul key = {index}>
@@ -59,43 +80,60 @@ const DailyLog = (props) => {
                     eatenFoodList={eatenFoodList}
                     setEatenFoodList={setEatenFoodList}
                     index={index}
-                    changeClicked={changeClicked}/> }
+                    changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood('breakfast', index)}>Remove</button>
             </ul>
         )
     })
     const mappedLunch = eatenFoodList.lunch.map((foodItem, index) => {
         return (
-            <ul>
-                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+            <ul key = {index}>
+                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                <AdjustFood
+                    foodItem={foodItem}
+                    eatenFoodList={eatenFoodList}
+                    setEatenFoodList={setEatenFoodList}
+                    index={index}
+                    changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood('lunch', index)}>Remove</button>
             </ul>
         )
     })
     const mappedDinner = eatenFoodList.dinner.map((foodItem, index) => {
         return (
-            <ul>
-                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+            <ul key = {index}>
+                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                <AdjustFood
+                    foodItem={foodItem}
+                    eatenFoodList={eatenFoodList}
+                    setEatenFoodList={setEatenFoodList}
+                    index={index}
+                    changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood('dinner', index)}>Remove</button>
             </ul>
         )
     })
     const mappedSnack = eatenFoodList.snack.map((foodItem, index) => {
         return (
-            <ul>
-                <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+            <ul key = {index}>
+                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                <AdjustFood
+                    foodItem={foodItem}
+                    eatenFoodList={eatenFoodList}
+                    setEatenFoodList={setEatenFoodList}
+                    index={index}
+                    changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood('snack', index)}>Remove</button>
             </ul>
         )
     })
-
 
     const switchToFindFood = (event) => {
         setFindFoodClicked(true)
         setMealType(event.target.value)
     }
 
-    return ( // be able to click on the food and adjust the amount
+    return ( // adjust serving units? might be an issue with the api return tbh
         <div>
             {findFoodClicked == false ? <div>
             <div>

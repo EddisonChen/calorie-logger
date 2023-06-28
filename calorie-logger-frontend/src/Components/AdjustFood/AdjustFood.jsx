@@ -59,8 +59,6 @@ const AdjustFood = (props) => {
         changeClicked(null, null)
     }
 
-   
-
     return (
         <div>
             <h4>{foodItem.name}</h4>
