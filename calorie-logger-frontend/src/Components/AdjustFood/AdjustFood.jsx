@@ -56,7 +56,7 @@ const AdjustFood = (props) => {
             };
             return updatedList;
           });
-        changeClicked(null, null)
+        changeClicked('none', -1)
     }
 
     return (

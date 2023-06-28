@@ -81,7 +81,7 @@ const DailyLog = (props) => {
                     setEatenFoodList={setEatenFoodList}
                     index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood('breakfast', index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
             </ul>
         )
     })
@@ -95,7 +95,7 @@ const DailyLog = (props) => {
                     setEatenFoodList={setEatenFoodList}
                     index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood('lunch', index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
             </ul>
         )
     })
@@ -109,7 +109,7 @@ const DailyLog = (props) => {
                     setEatenFoodList={setEatenFoodList}
                     index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood('dinner', index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
             </ul>
         )
     })
@@ -123,7 +123,7 @@ const DailyLog = (props) => {
                     setEatenFoodList={setEatenFoodList}
                     index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood('snack', index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
             </ul>
         )
     })
