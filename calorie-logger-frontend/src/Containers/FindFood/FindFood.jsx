@@ -15,7 +15,7 @@ const FindFood = () => {
     }
 
 
-    async function foodFetch(event) {
+    async function foodFetch() {
         const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?app_id=${apiInfo.appId}&app_key=%20${apiInfo.apiKey}%09&ingr=${searchValue}&nutrition-type=logging`, {
         method: "GET",
         contentType: 'application/json',

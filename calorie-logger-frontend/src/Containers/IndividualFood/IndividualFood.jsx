@@ -6,45 +6,63 @@ const IndividualFood = (props) => {
     const {item} = props;
 
     const [clicked, setClicked] = useState(false)
-    // const [defaultServingSize, setDefaultServingSize] = useState()
+    const [foodWeight, setFoodWeight] = useState(item.measures[0].weight)
+
+    const changeFoodWeight = (event) => {
+        setFoodWeight(event.target.value)
+        
+    }
+    console.log(foodWeight)
 
     const changeClicked = () => {
         setClicked(!clicked)
     }
 
-    // const mappedItemUnits = item.measures.map((unit) => {
-    //     return (
-    //         <option value={unit.label}>{unit.label}</option>   
-    //     )
-    // })
+    const nutritionPerGram = {
+        calories: (item.food.nutrients.ENERC_KCAL/item.measures[0].weight),
+        protein: (item.food.nutrients.PROCNT/item.measures[0].weight),
+        fat: (item.food.nutrients.FAT/item.measures[0].weight),
+        carbohydrate: (item.food.nutrients.CHOCDF/item.measures[0].weight)
+    }
 
-    // const changeDefaultServingSize = (event) => {
-    //     for (let i = 0; i < item.measures.length()-1; i ++) {
-    //         if (event.target.value == item.measures.label) {
-    //             setDefaultServingSize(item.measures.weight)
-    //         }
-    //     }
-    // }
+    const [displayNutrients, setDisplayNutrients] = useState({
+        calories: (nutritionPerGram.calories*foodWeight),
+        protein: (nutritionPerGram.protein*foodWeight),
+        fat: (nutritionPerGram.fat*foodWeight),
+        carbohydrate: (nutritionPerGram.carbohydrate*foodWeight)
+    })
+
+    useEffect(() => {
+        setDisplayNutrients({
+            calories: (nutritionPerGram.calories*foodWeight),
+            protein: (nutritionPerGram.protein*foodWeight),
+            fat: (nutritionPerGram.fat*foodWeight),
+            carbohydrate: (nutritionPerGram.carbohydrate*foodWeight)
+        })
+    }, [foodWeight])
 
     return (
         <li>
             {clicked == false ?
-            <div>
-                <h3 onClick={changeClicked}>{item.food.label}</h3>
+            <div onClick={changeClicked}>
+                <h3 >{item.food.label}</h3>
                 <p>{item.food.brand}: {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
             </div>
              : 
             <div>
-                <h3 onClick={changeClicked}>{item.food.label}</h3>
-                <div>
-                    
+                <div onClick={changeClicked}>
+                    <h3>{item.food.label}</h3>
+                    <div >
+                        <h4>{(displayNutrients.calories).toFixed()} Calories</h4>
+                        <h5>{(displayNutrients.protein).toFixed()}g Protein</h5>
+                        <h5>{(displayNutrients.fat).toFixed()}g Fat</h5>
+                        <h5>{(displayNutrients.carbohydrate).toFixed()}g Carbohydrate</h5>
+                    </div>
                 </div>
                 <div>
-                    <input type="number" defaultValue={item.measures[0].weight}></input> Grams
-                    {/* <select onChange={changeDefaultServingSize}>
-                        {mappedItemUnits}
-                    </select> */}
+                    <input type="number" defaultValue={item.measures[0].weight.toFixed()} onChange={changeFoodWeight}></input> Grams
                 </div>
+                <button>Add Food</button>
                 
             </div>}
         </li>
