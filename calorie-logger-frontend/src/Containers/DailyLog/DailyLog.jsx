@@ -1,7 +1,7 @@
 import './DailyLog.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import AddFood from '../../Components/AddFood/AddFood';
+import FindFood from '../FindFood/FindFood';
 
 const DailyLog = (props) => {
 
@@ -21,9 +21,24 @@ const DailyLog = (props) => {
 
     const [dailyCaloriesEaten, setDailyCaloriesEaten] = useState(0)
     const [remainingCalories, setRemainingCalories] = useState(goalCalories-dailyCaloriesEaten)
+    const [findFoodClicked, setFindFoodClicked] = useState(false)
+    const [mealType, setMealType] = useState()
 
-    return (
+    // useEffect(() => {
+    //     for (let i = 0; i < )
+
+    // }, [breakfastFood, lunchFood, dinnerFood, snackFood])
+
+    // console.log(breakfastFood)
+
+    const switchToFindFood = (event) => {
+        setFindFoodClicked(true)
+        setMealType(event.target.value)
+    }
+
+    return ( // add remove food button and show the list of foods per meal
         <div>
+            {findFoodClicked == false ? <div>
             <div>
                 <Link to={`/log/${pastDate}`}>{`<`}</Link>
                 <h1>Daily log: {date}</h1>
@@ -34,21 +49,25 @@ const DailyLog = (props) => {
             </div>
             <div>
                 <h3>Breakfast</h3>
-                <AddFood/>
+                <button value="breakfast" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
                 <h3>Lunch</h3>
-                <AddFood/>
+                <button value="lunch" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
                 <h3>Dinner</h3>
-                <AddFood/>
+                <button value="dinner" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
                 <h3>Snack</h3>
-                <AddFood/>
+                <button value="snack" onClick={switchToFindFood}>Add Food</button>
             </div>
-            
+            </div> : 
+            <FindFood
+                mealType={mealType}
+                setFindFoodClicked={setFindFoodClicked}/>}
+             
         </div>
     )
 }

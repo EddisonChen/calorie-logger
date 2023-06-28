@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import apiInfo from "../../config.js";
 import IndividualFood from '../IndividualFood/IndividualFood';
 
-const FindFood = () => {
+const FindFood = (props) => {
+
+    const {mealType, setFindFoodClicked} = props;
 
     const [foodList, setFoodList] = useState()
     const [searchValue, setSearchValue] = useState()
@@ -13,7 +15,6 @@ const FindFood = () => {
         const cleanInput = input.replace(/\s/g, "%20")
         setSearchValue(cleanInput)
     }
-
 
     async function foodFetch() {
         const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?app_id=${apiInfo.appId}&app_key=%20${apiInfo.apiKey}%09&ingr=${searchValue}&nutrition-type=logging`, {
@@ -25,7 +26,9 @@ const FindFood = () => {
         const mappedFoodItems = data.hints.map((item) => {
             return (
                 <IndividualFood
-                    item={item}/>
+                    item={item}
+                    mealType={mealType}
+                    />
             )
         })
         setFoodList(mappedFoodItems)
@@ -35,9 +38,14 @@ const FindFood = () => {
 
     console.log(foodList)
 
+    const switchToDailyLog = () => {
+        setFindFoodClicked(false)
+    }
+
     return (
         <div>
             <div>
+                <button onClick={switchToDailyLog}>Back</button>
                 <input type="text" placeholder="Search For Food" onChange={updateSearchValue}></input>
                 <button onClick={foodFetch}>Search</button>
             </div>

@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 
 
 const IndividualFood = (props) => {
-    const {item} = props;
+    const {item, mealType} = props;
 
     const [clicked, setClicked] = useState(false)
     const [foodWeight, setFoodWeight] = useState(item.measures[0].weight)
@@ -12,7 +12,6 @@ const IndividualFood = (props) => {
         setFoodWeight(event.target.value)
         
     }
-    console.log(foodWeight)
 
     const changeClicked = () => {
         setClicked(!clicked)
@@ -40,6 +39,11 @@ const IndividualFood = (props) => {
             carbohydrate: (nutritionPerGram.carbohydrate*foodWeight)
         })
     }, [foodWeight])
+
+    // const addFoodToLog = () => {
+    //     setMeal(meal => [...meal, displayNutrients])
+    //     changeClicked()
+    // }
 
     return (
         <li>
