@@ -31,40 +31,55 @@ const DailyLog = (props) => {
         snack: []
     })
 
-    const mappedBreakfast = eatenFoodList.breakfast.map((foodItem) => {
+    // const removeFood = (mealType, index) => {
+    //     const tempObj = eatenFoodList
+    //     console.log(tempObj)
+    //     tempObj[mealType].splice(index, 1)
+    //     console.log(tempObj)
+    //     setEatenFoodList(tempObj)
+    // }
 
-        const removeFood = () => {
-            const temp = eatenFoodList
-            console.log(temp)
-            temp.breakfast.splice(temp.breakfast.indexOf(foodItem), 1)
-            setEatenFoodList(temp)
-        }
+    const removeFood = (mealType, index) => {
+        setEatenFoodList(prevList => {
+          const updatedList = {
+            ...prevList,
+            [mealType]: prevList[mealType].filter((_, i) => i !== index)
+          };
+          return updatedList;
+        });
+      };
+    
+      console.log(eatenFoodList)
 
+    const mappedBreakfast = eatenFoodList.breakfast.map((foodItem, index) => {  
         return (
-            <ul>
+            <ul key = {index}>
                 <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
-                <button onClick={removeFood}>Remove</button>
+                <button onClick={() => removeFood('breakfast', index)}>Remove</button>
             </ul>
         )
     })
-    const mappedLunch = eatenFoodList.lunch.map((foodItem) => {
+    const mappedLunch = eatenFoodList.lunch.map((foodItem, index) => {
         return (
             <ul>
                 <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+                <button onClick={() => removeFood('lunch', index)}>Remove</button>
             </ul>
         )
     })
-    const mappedDinner = eatenFoodList.dinner.map((foodItem) => {
+    const mappedDinner = eatenFoodList.dinner.map((foodItem, index) => {
         return (
             <ul>
                 <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+                <button onClick={() => removeFood('dinner', index)}>Remove</button>
             </ul>
         )
     })
-    const mappedSnack = eatenFoodList.snack.map((foodItem) => {
+    const mappedSnack = eatenFoodList.snack.map((foodItem, index) => {
         return (
             <ul>
                 <li>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li>
+                <button onClick={() => removeFood('snack', index)}>Remove</button>
             </ul>
         )
     })

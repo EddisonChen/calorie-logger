@@ -27,7 +27,7 @@ const FindFood = (props) => {
         const mappedFoodItems = data.hints.map((item) => {
             return (
                 <IndividualFood
-                    // key={item.food}
+                    key={item.food}
                     item={item}
                     mealType={mealType}
                     eatenFoodList={eatenFoodList}
