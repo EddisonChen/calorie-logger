@@ -74,7 +74,7 @@ const DailyLog = (props) => {
     const mappedBreakfast = eatenFoodList.breakfast.map((foodItem, index) => {  
         return (
             <ul key = {index}>
-                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
@@ -88,7 +88,7 @@ const DailyLog = (props) => {
     const mappedLunch = eatenFoodList.lunch.map((foodItem, index) => {
         return (
             <ul key = {index}>
-                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
@@ -102,7 +102,7 @@ const DailyLog = (props) => {
     const mappedDinner = eatenFoodList.dinner.map((foodItem, index) => {
         return (
             <ul key = {index}>
-                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
@@ -116,7 +116,7 @@ const DailyLog = (props) => {
     const mappedSnack = eatenFoodList.snack.map((foodItem, index) => {
         return (
             <ul key = {index}>
-                {selectedMealIndex !== mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
