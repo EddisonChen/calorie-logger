@@ -59,14 +59,20 @@ const AdjustFood = (props) => {
         changeClicked('none', -1)
     }
 
+    const cancelAdjustment = () => {
+        changeClicked('none', -1)
+    }
+
     return (
         <div>
-            <h4>{foodItem.name}</h4>
+            <div onClick={cancelAdjustment}>
+                <h4>{foodItem.name}</h4>
             <div>
                 <h4>{displayNutrients.calories} Calories</h4>
                 <h5>{displayNutrients.protein}g Protein</h5>
                 <h5>{displayNutrients.fat}g Fat</h5>
                 <h5>{displayNutrients.carbohydrate}g Carbohydrate</h5>
+            </div>
             </div>
             <div>
                 <input type="number" defaultValue={foodItem.amount} onChange={changeFoodWeight}></input> Grams

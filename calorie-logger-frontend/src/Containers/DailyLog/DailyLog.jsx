@@ -34,8 +34,8 @@ const DailyLog = (props) => {
 
     useEffect(() => {
         let sum = 0
-        for (let i = 0; i < eatenFoodList["breakfast"].length; i ++) {
-            sum += eatenFoodList["breakfast"][i].calories
+        for (let i = 0; i < eatenFoodList.breakfast.length; i ++) {
+            sum += eatenFoodList.breakfast[i].calories
         }
         for (let i = 0; i < eatenFoodList.lunch.length; i ++) {
             sum += eatenFoodList.lunch[i].calories
@@ -47,7 +47,8 @@ const DailyLog = (props) => {
             sum += eatenFoodList.snack[i].calories
         }
         setDailyCaloriesEaten(sum)
-    }, [eatenFoodList.breakfast, eatenFoodList.lunch, eatenFoodList.dinner, eatenFoodList.snack])
+        setRemainingCalories(goalCalories-dailyCaloriesEaten)
+    }, [eatenFoodList])
 
     console.log(dailyCaloriesEaten)
 
@@ -61,15 +62,13 @@ const DailyLog = (props) => {
         });
     };
 
-    // console.log(eatenFoodList)
+    console.log(eatenFoodList)
 
     const [selectedMealIndex, setSelectedMealIndex] = useState(null)
 
     const changeClicked = (mealType, index) => {
         setSelectedMealIndex(mealType + index)
     }
-
-    console.log(selectedMealIndex)
 
     const mappedBreakfast = eatenFoodList.breakfast.map((foodItem, index) => {  
         return (
