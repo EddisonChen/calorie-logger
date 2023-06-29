@@ -7,14 +7,6 @@ const UserProfile = (props) => {
 
     const {goalCalories, setGoalCalories, macronutrients} = props;
 
-    const { user, isAuthenticated, isLoading } = useAuth0;
-
-    // if (isLoading) {
-    //     return <div>
-    //         Loading...
-    //     </div>
-    // }
-
     const [unitType, setUnitType] = useState('');
     const [userPhysicalAttributes, setUserPhysicalAttributes] = useState({
         sex: '',

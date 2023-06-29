@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 
 const AllRoutes = (props) => {
 
+    const {user} = props;
+
     const location = useLocation();
 
     const [goalCalories, setGoalCalories] = useState(null);
@@ -44,7 +46,8 @@ const AllRoutes = (props) => {
 
     return (
         <Routes location={location} key={location.pathname}>
-            <Route path='/' element={<Home/>}></Route>
+            <Route path='/' element={<Home
+                user={user}/>}></Route>
             {/* <Route path="/logoutpage" element={<LogoutPage/>}/> */}
             <Route path="/userprofile" element={<UserProfile 
                 goalCalories={goalCalories} 
