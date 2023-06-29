@@ -4,7 +4,6 @@ import UserProfile from '../../Containers/UserProfile/UserProfile';
 import DailyLog from '../../Containers/DailyLog/DailyLog';
 import Home from '../../Containers/Home/Home';
 import { useState, useEffect } from 'react';
-import FindFood from '../../Containers/FindFood/FindFood';
 
 const AllRoutes = (props) => {
 

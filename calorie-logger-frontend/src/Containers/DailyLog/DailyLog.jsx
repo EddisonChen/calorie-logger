@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import FindFood from '../FindFood/FindFood';
 import AdjustFood from '../../Components/AdjustFood/AdjustFood';
+import NutrientSummary from '../NutrientSummary/NutrientSummary';
 
 const DailyLog = (props) => {
 
@@ -164,6 +165,13 @@ const DailyLog = (props) => {
                 {mappedSnack}
                 <button value="snack" onClick={switchToFindFood}>Add Food</button>
             </div>
+            <NutrientSummary
+                macronutrients={macronutrients}
+                goalCalories={goalCalories}
+                dailyCaloriesEaten={dailyCaloriesEaten}
+                remainingCalories={remainingCalories}
+                eatenFoodList={eatenFoodList}
+                />
             </div> : 
             <FindFood
                 mealType={mealType}
