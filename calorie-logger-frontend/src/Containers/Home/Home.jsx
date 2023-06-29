@@ -9,7 +9,7 @@ const Home = (props) => {
 
     console.log(user)
     return (
-        <p>Home</p>
+        <p>Welcome, {user.name}!</p>
     )
 }
 
