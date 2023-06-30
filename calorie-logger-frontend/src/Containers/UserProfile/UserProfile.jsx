@@ -128,7 +128,7 @@ const UserProfile = (props) => {
                         <option value="1.9">Athlete</option>
                     </select>
                     <select name="goal" onChange={changeUserGoal} value={"DEFAULT"}>
-                        <option disabled value="DEFAULT">-- Select Your Goal --</option>
+                        <option value="DEFAULT" disabled>-- Select Your Goal --</option>
                         <option value="-1000">Lose 2 LBs/.91 KGs Per Week</option>
                         <option value="-750">Lose 1.5 LBs/.68 KGs Per Week</option>
                         <option value="-500">Lose 1 LBs/.45 KGs Per Week</option>
