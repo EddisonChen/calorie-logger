@@ -4,11 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.calocalcapi.model.Foods;
 import com.example.calocalcapi.service.FoodsService;
@@ -19,24 +15,24 @@ public class FoodsController {
     @Autowired
         FoodsService foodService;
 
-    @RequestMapping(value="/foods", method=RequestMethod.POST)
+    @PostMapping(value="/foods")
     public Foods createFood(@RequestBody Foods food) {
         return foodService.createFood(food);
     }
 
-    @RequestMapping(value="/foods", method=RequestMethod.GET)
-    public List<Foods> getFoods() {
-        return foodService.getFoods();
+    @GetMapping(value="/foods")
+    public List<Foods> getFoods(@RequestParam(value="userId") String userId) {
+        return foodService.getFoods(userId);
     }
 
-    @RequestMapping(value="/foods/{foodId}", method=RequestMethod.PUT)
-    public Foods updateFood(@PathVariable(value="foodId") Integer id, @RequestBody Foods foodDetails) {
-        return foodService.updateFood(id, foodDetails);
+    @PutMapping(value="/foods/{foodId}")
+    public Foods updateFood(@PathVariable(value="foodId") Integer foodId, @RequestParam(value="userId") String userId,@RequestBody Foods foodDetails) {
+        return foodService.updateFood(foodId, userId, foodDetails);
     }
 
-    @RequestMapping(value="/foods/{foodId}", method = RequestMethod.DELETE)
-    public void deleteFood(@PathVariable(value="foodId") Integer id) {
-        foodService.deleteFood(id);
+    @DeleteMapping(value="/foods/{foodId}")
+    public void deleteFood(@PathVariable(value="foodId") Integer foodId, @RequestParam(value="userId") String userId) {
+        foodService.deleteFood(foodId, userId);
     }
 
 }

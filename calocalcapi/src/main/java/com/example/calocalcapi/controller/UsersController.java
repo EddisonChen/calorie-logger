@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,22 +20,22 @@ public class UsersController {
     @Autowired
         UsersService userService;
 
-    @RequestMapping(value="/users", method=RequestMethod.POST)
+    @PostMapping("/users")
     public Users createUser(@RequestBody Users user) {
         return userService.createUser(user);
     }
 
-    @RequestMapping(value="/users", method=RequestMethod.GET)
+    @GetMapping("/users")
     public List<Users> getUsers() {
         return userService.getUsers();
     }
 
-    @RequestMapping(value="/users/{userId}", method=RequestMethod.PUT)
+    @PutMapping("/users/{userId}")
     public Users updateUser(@PathVariable(value="userId") String id, @RequestBody Users userDetails) {
         return userService.updateUser(id, userDetails);
     }
 
-    @RequestMapping(value="users/{userId}", method=RequestMethod.DELETE)
+    @DeleteMapping(value="users/{userId}")
     public void deleteUser(@PathVariable(value="userId") String id) {
         userService.deleteUser(id);
     }
