@@ -25,18 +25,15 @@ public class UsersService {
         return userRepo.findAll();
     }
 
-    public void deleteEmployee(String userId) {
+    public void deleteUser(String userId) {
         userRepo.deleteById(userId);
     }
 
-    public Users updateUser(Users updatedUser) {
-        Users existingUser = userRepo.findById(updatedUser.getId()).orElse(null);
+    public Users updateUser(String id ,Users userDetails) {
+        Users existingUser = userRepo.findById(id).get();
+        existingUser.setName(userDetails.getName());
+        existingUser.setEmail(userDetails.getEmail());
 
-        if (existingUser != null) {
-            existingUser.setName(updatedUser.getName());
-            existingUser.setEmail(updatedUser.getEmail());
-            return userRepo.save(existingUser);
-        }
-        return existingUser;
+        return userRepo.save(existingUser);
     }
 }

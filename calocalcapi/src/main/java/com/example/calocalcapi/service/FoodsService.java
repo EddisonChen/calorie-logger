@@ -29,21 +29,17 @@ public class FoodsService {
         foodRepo.deleteById(foodId);
     }
 
-    public Foods updateFood(Foods updatedFood) {
-        Foods existingFood = foodRepo.findById(updatedFood.getId()).orElse(null);
+    public Foods updateFood(Integer id, Foods foodDetails) {
+        Foods existingFood = foodRepo.findById(id).get();
+        existingFood.setDate(foodDetails.getDate());
+        existingFood.setMeal_type(foodDetails.getMeal_type());
+        existingFood.setName(foodDetails.getName());
+        existingFood.setAmount(foodDetails.getAmount());
+        existingFood.setCalories(foodDetails.getCalories());
+        existingFood.setProtein(foodDetails.getProtein());
+        existingFood.setCarbohydrate(foodDetails.getCarbohydrate());
+        existingFood.setFat(foodDetails.getFat());
 
-        if (existingFood != null) {
-            existingFood.setDate(updatedFood.getDate());
-            existingFood.setMeal_type(updatedFood.getMeal_type());
-            existingFood.setName(updatedFood.getName());
-            existingFood.setAmount(updatedFood.getAmount());
-            existingFood.setCalories(updatedFood.getCalories());
-            existingFood.setProtein(updatedFood.getProtein());
-            existingFood.setCarbohydrate(updatedFood.getCarbohydrate());
-            existingFood.setFat(updatedFood.getFat());
-            return foodRepo.save(existingFood);
-        }
-
-        return existingFood;
+        return foodRepo.save(existingFood);
     }
 }
