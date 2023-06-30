@@ -44,6 +44,7 @@ const DailyLog = (props) => {
     };
 
     console.log(eatenFoodList)
+    console.log(date)
 
     const [selectedMealIndex, setSelectedMealIndex] = useState(null)
 

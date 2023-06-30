@@ -7,7 +7,7 @@ const Home = (props) => {
 
     // const {user, isLoading, isAuthenticated} = useAuth0();
 
-    console.log(user)
+    console.log(user, user.sub)
     return (
         <p>Welcome, {user.name}!</p>
     )
