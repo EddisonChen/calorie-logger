@@ -33,7 +33,20 @@ public class UsersService {
         Users existingUser = userRepo.findById(id).get();
         existingUser.setName(userDetails.getName());
         existingUser.setEmail(userDetails.getEmail());
+        existingUser.setSex(userDetails.getSex());
+        existingUser.setUnit_type(userDetails.getUnit_type());
+        existingUser.setHeight(userDetails.getHeight());
+        existingUser.setWeight(userDetails.getWeight());
+        existingUser.setAge(userDetails.getAge());
+        existingUser.setActivity_level(userDetails.getActivity_level());
+        existingUser.setGoal(userDetails.getGoal());
+        existingUser.setGoal_calories(userDetails.getGoal_calories());
+        existingUser.setGoal_protein(userDetails.getGoal_protein());
+        existingUser.setGoal_carbohydrate(userDetails.getGoal_carbohydrate());
+        existingUser.setGoal_fat(userDetails.getGoal_fat());
 
         return userRepo.save(existingUser);
     }
 }
+
+// UPDATE THIS CLASS!!!! INCLUDE NEW METHODS
