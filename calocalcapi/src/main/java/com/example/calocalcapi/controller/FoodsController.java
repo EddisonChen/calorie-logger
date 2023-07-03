@@ -15,9 +15,10 @@ public class FoodsController {
     @Autowired
         FoodsService foodService;
 
+    // for RequestParam, put localhost:8080/api/food?userId=ex
     @PostMapping(value="/foods")
-    public Foods createFood(@RequestBody Foods food) {
-        return foodService.createFood(food);
+    public Foods createFood(@RequestBody Foods food, @RequestParam("userId") String userId) throws Exception {
+        return foodService.createFood(food, userId);
     }
 
     @GetMapping(value="/foods")

@@ -8,18 +8,31 @@ import com.example.calocalcapi.repository.FoodsRepository;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.calocalcapi.model.Users;
+import com.example.calocalcapi.repository.UsersRepository;
+
 @Service
 public class FoodsService {
 
     private FoodsRepository foodRepo;
+    private UsersRepository userRepo;
 
     @Autowired
-        public FoodsService(FoodsRepository foodRepo) {
+        public FoodsService(FoodsRepository foodRepo, UsersRepository userRepo) {
         this.foodRepo = foodRepo;
+        this.userRepo = userRepo;
+
     }
 
-    public Foods createFood(Foods food) {
-        return foodRepo.save(food);
+    public Foods createFood(Foods food, String userId) throws Exception {
+        Optional<Users> optionalUser = userRepo.findById(userId);
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+            food.setUser(user);
+            return foodRepo.save(food);
+        } else {
+            throw new Exception("User not found with ID: " + userId);
+        }
     }
 
     public List<Foods> getFoods(String userId) {

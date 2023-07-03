@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.calocalcapi.model.Users;
 import com.example.calocalcapi.repository.UsersRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsersService {
@@ -23,6 +24,10 @@ public class UsersService {
 
     public List<Users> getUsers() {
         return userRepo.findAll();
+    }
+
+    public Optional<Users> getUserById(String userId) {
+        return userRepo.findById(userId);
     }
 
     public void deleteUser(String userId) {

@@ -33,7 +33,7 @@ public class Users {
     private Integer age;
 
     @Column(name="activity_level")
-    private Integer activity_level;
+    private Float activity_level;
 
     @Column(name="goal")
     private Integer goal;
@@ -50,7 +50,7 @@ public class Users {
     @Column(name="goal_fat")
     private Integer goal_fat;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Foods> foods;
 
     public String getId() {
@@ -117,11 +117,11 @@ public class Users {
         this.age = age;
     }
 
-    public Integer getActivity_level() {
+    public Float getActivity_level() {
         return activity_level;
     }
 
-    public void setActivity_level(Integer activity_level) {
+    public void setActivity_level(Float activity_level) {
         this.activity_level = activity_level;
     }
 

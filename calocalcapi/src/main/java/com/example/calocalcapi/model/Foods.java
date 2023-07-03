@@ -1,8 +1,10 @@
 package com.example.calocalcapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name="foods")
@@ -38,6 +40,7 @@ public class Foods {
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @JsonIgnoreProperties("foods")
     private Users user;
 
     public Integer getId() {
