@@ -5,7 +5,7 @@ import './UserProfile.css';
 
 const UserProfile = (props) => {
 
-    const {goalCalories, setGoalCalories, macronutrients} = props;
+    const {goalCalories, setGoalCalories, macronutrients, user} = props;
 
     const [unitType, setUnitType] = useState('');
     const [userPhysicalAttributes, setUserPhysicalAttributes] = useState({
@@ -17,11 +17,22 @@ const UserProfile = (props) => {
     });
     const [tdee, setTdee] = useState(null);
     const [userGoal, setUserGoal] = useState(tdee);
-    const [heightInput, setHeightInput] = useState()
+    const [heightInput, setHeightInput] = useState();
+    const [fetchedUserDetails, setFetchedUserDetails] = useState();
 
-    // async function fetchUserDetails() {
-    //     const response = await fetch("localhost:8080/api/")
-    // }
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const response = await fetch(`http://localhost:8080/api/users/${user.sub}`, {
+                method: "GET",
+                contentType: "application/json",
+            })
+            const data = await response.json()
+            setFetchedUserDetails(data)
+        }
+        fetchUserDetails()
+    }, [])
+
+    console.log(fetchedUserDetails)
 
     const changeUserPhysicalAttributes = (event) => {
         const tempUserObject = userPhysicalAttributes;

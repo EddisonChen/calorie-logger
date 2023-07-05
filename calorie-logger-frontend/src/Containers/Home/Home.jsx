@@ -8,7 +8,6 @@ const Home = (props) => {
 
     // const {user, isLoading, isAuthenticated} = useAuth0();
 
-    
     useEffect(() => {
         const checkOrCreateUser = async () => {
         const response = await fetch(`http://localhost:8080/api/users/${user.sub}`, {
@@ -24,12 +23,19 @@ const Home = (props) => {
             body: JSON.stringify({
                 id: user.sub,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                sex: "male",
+                unit_type: "imperial",
+                height: 69,
+                weight: 150,
+                age: 25,
+                activity_level: 1.2,
+                goal: 0,
+                goal_calories: 1988,
+                goal_protein: 149,
+                goal_carbohydrate: 199,
+                goal_fat: 66 
             })
-            }).then((postResponse) => {
-                postResponse.json()
-            }).then((json) => {
-                console.log(json)
             })
         }
     }

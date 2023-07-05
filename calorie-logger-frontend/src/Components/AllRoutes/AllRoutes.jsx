@@ -52,7 +52,8 @@ const AllRoutes = (props) => {
             <Route path="/userprofile" element={<UserProfile 
                 goalCalories={goalCalories} 
                 setGoalCalories={setGoalCalories}
-                macronutrients={macronutrients}/>}/>
+                macronutrients={macronutrients}
+                user={user}/>}/>
             {renderDailyLog}
             {/* <Route path="/FindFood" element={<FindFood/>}></Route> */}
         </Routes>
