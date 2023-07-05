@@ -14,13 +14,20 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsersController {
 
     @Autowired
         UsersService userService;
 
     @PostMapping("/users")
-    public Users createUser(@RequestBody Users user) {
+    public Users createUser(@RequestParam(value = "id", required = true) String id,
+                            @RequestParam(value = "name", required = true) String name,
+                            @RequestParam(value = "email", required = true) String email) {
+        Users user = new Users();
+        user.setId(id);
+        user.setName(name);
+        user.setEmail(email);
         return userService.createUser(user);
     }
 

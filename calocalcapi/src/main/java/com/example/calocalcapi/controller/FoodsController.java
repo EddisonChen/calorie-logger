@@ -11,6 +11,7 @@ import com.example.calocalcapi.service.FoodsService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FoodsController {
     @Autowired
         FoodsService foodService;

@@ -19,6 +19,10 @@ const UserProfile = (props) => {
     const [userGoal, setUserGoal] = useState(tdee);
     const [heightInput, setHeightInput] = useState()
 
+    // async function fetchUserDetails() {
+    //     const response = await fetch("localhost:8080/api/")
+    // }
+
     const changeUserPhysicalAttributes = (event) => {
         const tempUserObject = userPhysicalAttributes;
         tempUserObject[event.target.name] = event.target.value;
