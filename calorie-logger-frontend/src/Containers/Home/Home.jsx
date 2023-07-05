@@ -10,7 +10,8 @@ const Home = (props) => {
 
     useEffect(() => {
         const checkOrCreateUser = async () => {
-        const response = await fetch(`http://localhost:8080/api/users/${user.sub}`, {
+        const cleanUrl = (user.sub).replace(/\|/g, "%7C")
+        const response = await fetch(`http://localhost:8080/api/users/${cleanUrl}`, {
             method: "GET",
             contentType: "application/json",
         })
@@ -42,7 +43,7 @@ const Home = (props) => {
     checkOrCreateUser()
     }, [])
 
-    console.log(user, user.sub)
+    // console.log(user, user.sub)
     return (
         <p>Welcome, {user.name}!</p>
     )
