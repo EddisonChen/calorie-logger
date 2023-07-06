@@ -33,7 +33,7 @@ const UserProfile = (props) => {
         fetchUserDetails()
     }, [])
 
-    // console.log(fetchedUserDetails)
+    console.log(fetchedUserDetails)
 
     const changeUserPhysicalAttributes = (event) => {
         const tempUserObject = userPhysicalAttributes;
@@ -95,30 +95,6 @@ const UserProfile = (props) => {
         setUserGoal(event.target.value)
     }
 
-    // const updateUserProfile = async () => {
-    //     const cleanUrl = (user.sub).replace(/\|/g, "%7C")
-    //     const putReponse = await fetch(`http://localhost:8080/api/users/${cleanUrl}`, {
-    //         method: "PUT",
-    //         headers: {"Content-type": "application/json"},
-    //         body: JSON.stringify({
-    //             name: user.name,
-    //             email: user.email,
-    //             sex: userPhysicalAttributes.sex,
-    //             unit_type: unitType,
-    //             height: parseInt(userPhysicalAttributes.height),
-    //             weight: parseInt(userPhysicalAttributes.weight),
-    //             age: parseInt(userPhysicalAttributes.age),
-    //             activity_level: parseInt(userPhysicalAttributes.activityLevel),
-    //             goal: parseInt(userGoal),
-    //             goal_calories: goalCalories,
-    //             goal_protein: parseInt((macronutrients.protein*goalCalories)/4),
-    //             goal_carbohydrate: parseInt((macronutrients.carbohydrate*goalCalories)/4),
-    //             goal_fat: parseInt((macronutrients.fat*goalCalories)/9)
-    //         })
-    //     })
-    //     console.log(putReponse)
-    // }
-
     const calculateTdee = () => {
         if (userPhysicalAttributes.age !== '' && userPhysicalAttributes.height !== '' && userPhysicalAttributes.weight !== '' && userPhysicalAttributes.sex !== '') {
             let convertedHeight = parseInt(userPhysicalAttributes.height);
@@ -172,6 +148,65 @@ const UserProfile = (props) => {
         }
     }
 
+    const [previousInfo, setPreviousInfo] = useState(null)
+
+    const displayPreviousInfo = () => {
+        let heightUnit = undefined;
+        let weightUnit = undefined;
+        if (fetchedUserDetails) {
+            if (fetchedUserDetails.unit_type == "imperial") {
+                heightUnit = "In."
+                weightUnit = "Lbs"
+            } else {
+                heightUnit = "Cm"
+                weightUnit = "Kg"
+            }
+        const previousTdee = fetchedUserDetails.goal_calories - fetchedUserDetails.goal
+        
+        setPreviousInfo(
+            <div>
+                <h4>Your Prior Information</h4>
+                <p>Please fill out the above form to recalculate if any factors have changed.</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Sex</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                            <th>Age</th>
+                            <th>TDEE</th>
+                        </tr>
+                        <tr>
+                            <td>{fetchedUserDetails.sex}</td>
+                            <td>{fetchedUserDetails.height} {heightUnit}</td>
+                            <td>{fetchedUserDetails.weight} {weightUnit}</td>
+                            <td>{fetchedUserDetails.age}</td>
+                            <td>{previousTdee} cal.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Daily Calories</th>
+                            <th>Daily Protein</th>
+                            <th>Daily Carbohydrates</th>
+                            <th>Daily Fat</th>
+                        </tr>
+                        <tr>
+                            <td>{fetchedUserDetails.goal_calories}</td>
+                            <td>{fetchedUserDetails.goal_protein}g</td>
+                            <td>{fetchedUserDetails.goal_carbohydrate}g</td>
+                            <td>{fetchedUserDetails.goal_fat}g</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        )}
+    }
+
+    useEffect(displayPreviousInfo, [fetchedUserDetails])
+
     return (
             <div>
                 {/* <img src={user.picture} alt={user.name}/> */}
@@ -211,6 +246,7 @@ const UserProfile = (props) => {
                 
                 {tdee == null ? <p>Please fill out the entire form.</p> : 
                 <div>
+                    <h5>Your Updated Information</h5>
                     <p>Your estimated total daily energy expenditure is {tdee} calories per day.</p>
                     <p>In accordance with your goals, you should eat {goalCalories} calories per day.</p>
                     <h3>Adjust Calories</h3>
@@ -238,6 +274,7 @@ const UserProfile = (props) => {
                         </tbody>
                     </table>
                 </div>}
+                {fetchedUserDetails && !tdee && previousInfo}
                 
             </div>
     )
