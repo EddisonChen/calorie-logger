@@ -7,7 +7,9 @@ import NutrientSummary from '../NutrientSummary/NutrientSummary';
 
 const DailyLog = (props) => {
 
-    const {date, goalCalories, macronutrients} = props;
+    const {date, goalCalories, macronutrients, fetchedUserDetails} = props;
+
+    console.log(fetchedUserDetails)
 
     const currentDate = new Date(date);
 
@@ -144,7 +146,7 @@ const DailyLog = (props) => {
                 <Link to={`/log/${futureDate}`}>{`>`}</Link>
             </div>
             <div>
-                <p>{goalCalories} - {dailyCaloriesEaten} = {remainingCalories} calories remaining</p>
+                <p>{fetchedUserDetails.goal_calories} - {dailyCaloriesEaten} = {remainingCalories} calories remaining</p>
             </div>
             <div>
                 <h3>Breakfast</h3>

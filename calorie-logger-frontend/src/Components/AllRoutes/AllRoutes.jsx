@@ -35,12 +35,28 @@ const AllRoutes = (props) => {
     
     const dates = generateDates();
 
+    const [fetchedUserDetails, setFetchedUserDetails] = useState();
+
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const cleanUrl = (user.sub).replace(/\|/g, "%7C")
+            const response = await fetch(`http://localhost:8080/api/users/${cleanUrl}`, {
+                method: "GET",
+                contentType: "application/json",
+            })
+            const data = await response.json()
+            setFetchedUserDetails(data)
+        }
+        fetchUserDetails()
+    }, [goalCalories])
+
     const renderDailyLog = dates.map((date) => {
         return (
             <Route path={`/log/${date}`} key={date} element={<DailyLog 
                 date = {date}
                 goalCalories={goalCalories}
-                macronutrients={macronutrients}/>}></Route>
+                macronutrients={macronutrients}
+                fetchedUserDetails={fetchedUserDetails}/>}></Route>
         )
     })
 
@@ -53,7 +69,8 @@ const AllRoutes = (props) => {
                 goalCalories={goalCalories} 
                 setGoalCalories={setGoalCalories}
                 macronutrients={macronutrients}
-                user={user}/>}/>
+                user={user}
+                fetchedUserDetails={fetchedUserDetails}/>}/>
             {renderDailyLog}
             {/* <Route path="/FindFood" element={<FindFood/>}></Route> */}
         </Routes>
