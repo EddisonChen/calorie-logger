@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.calocalcapi.model.Foods;
 import com.example.calocalcapi.repository.FoodsRepository;
+
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,9 @@ public class FoodsService {
         } else {
             throw new RuntimeException("Food not found for foodId: " + foodId + " and userId: " + userId);
         }
+    }
+
+    public List<Foods> getFoodsByDate(String userId, Date date) {
+        return foodRepo.findAllByUserIdAndDate(userId, date);
     }
 }

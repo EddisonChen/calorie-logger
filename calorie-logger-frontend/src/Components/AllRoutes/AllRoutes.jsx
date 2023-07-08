@@ -1,5 +1,4 @@
 import {useLocation, Routes, Route} from 'react-router-dom';
-import LogoutPage from '../LogoutPage/LogoutPage';
 import UserProfile from '../../Containers/UserProfile/UserProfile';
 import DailyLog from '../../Containers/DailyLog/DailyLog';
 import Home from '../../Containers/Home/Home';
@@ -64,7 +63,6 @@ const AllRoutes = (props) => {
         <Routes location={location} key={location.pathname}>
             <Route path='/' element={<Home
                 user={user}/>}></Route>
-            {/* <Route path="/logoutpage" element={<LogoutPage/>}/> */}
             <Route path="/userprofile" element={<UserProfile 
                 goalCalories={goalCalories} 
                 setGoalCalories={setGoalCalories}
@@ -72,7 +70,6 @@ const AllRoutes = (props) => {
                 user={user}
                 fetchedUserDetails={fetchedUserDetails}/>}/>
             {renderDailyLog}
-            {/* <Route path="/FindFood" element={<FindFood/>}></Route> */}
         </Routes>
     )
 }

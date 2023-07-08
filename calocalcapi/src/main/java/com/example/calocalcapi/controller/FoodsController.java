@@ -1,5 +1,6 @@
 package com.example.calocalcapi.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class FoodsController {
     @GetMapping(value="/foods")
     public List<Foods> getFoods(@RequestParam(value="userId") String userId) {
         return foodService.getFoods(userId);
+    }
+
+    @GetMapping(value="/foods/{date}")
+    public List<Foods> getFoodsByDate(@PathVariable(value="date") Date date, @RequestParam(value="userId") String userId) {
+        return foodService.getFoodsByDate(userId, date);
     }
 
     @PutMapping(value="/foods/{foodId}")
