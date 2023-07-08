@@ -18,20 +18,6 @@ const UserProfile = (props) => {
     const [tdee, setTdee] = useState(null);
     const [userGoal, setUserGoal] = useState(tdee);
     const [heightInput, setHeightInput] = useState();
-    // const [fetchedUserDetails, setFetchedUserDetails] = useState();
-
-    // useEffect(() => {
-    //     const fetchUserDetails = async () => {
-    //         const cleanUrl = (user.sub).replace(/\|/g, "%7C")
-    //         const response = await fetch(`http://localhost:8080/api/users/${cleanUrl}`, {
-    //             method: "GET",
-    //             contentType: "application/json",
-    //         })
-    //         const data = await response.json()
-    //         setFetchedUserDetails(data)
-    //     }
-    //     fetchUserDetails()
-    // }, [])
 
     console.log(fetchedUserDetails)
 

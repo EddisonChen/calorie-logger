@@ -7,7 +7,7 @@ import NutrientSummary from '../NutrientSummary/NutrientSummary';
 
 const DailyLog = (props) => {
 
-    const {date, goalCalories, macronutrients, fetchedUserDetails} = props;
+    const {date, goalCalories, macronutrients, fetchedUserDetails, user} = props;
 
     console.log(fetchedUserDetails)
 
@@ -35,78 +35,120 @@ const DailyLog = (props) => {
         snack: []
     })
 
-    const removeFood = (mealType, index) => {
-        setEatenFoodList(prevList => {
-          const updatedList = {
-            ...prevList,
-            [mealType]: prevList[mealType].filter((_, i) => i !== index)
-          };
-          return updatedList;
-        });
+    const [formattedDate, setFormattedDate] = useState();
+
+    useEffect(() => {
+        const dateSplit = date.split('/')
+        const day = dateSplit[1]
+        const month = dateSplit[0]
+        const year = dateSplit[2]
+
+        setFormattedDate(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`)
+    })
+
+    const removeFoodRequest = async (foodId) => {
+        const cleanUserId = (user.sub).replace(/\|/g, "%7C");
+        const response = await fetch(`http://localhost:8080/api/foods/${foodId}?userId=${cleanUserId}`, {
+            method: "DELETE",
+            contentType: "application/json"
+        })
+        const data = await response.json()
+        console.log(data)
+    }
+
+    const removeFood = (foodId) => {
+        // setEatenFoodList(prevList => {
+        //   const updatedList = {
+        //     ...prevList,
+        //     [mealType]: prevList[mealType].filter((_, i) => i !== index)
+        //   };
+        //   return updatedList;
+        // });
+        removeFoodRequest(foodId)
+
     };
 
-    console.log(eatenFoodList)
-    console.log(date)
+    // console.log(eatenFoodList)
+    console.log(formattedDate)
+    
+    const [fetchedFoodData, setFetchedFoodData] = useState()
+
+    useEffect(()=> {
+        const fetchTodayFood = async () => {
+            const cleanUserId = (user.sub).replace(/\|/g, "%7C");
+            const response = await fetch(`http://localhost:8080/api/foods/${formattedDate}?userId=${cleanUserId}`, {
+                method: "GET",
+                contentType: "application/json"
+            });
+            const data = await response.json()
+            setFetchedFoodData(data)
+        }
+        fetchTodayFood()
+    }, [eatenFoodList])
 
     const [selectedMealIndex, setSelectedMealIndex] = useState(null)
 
-    const changeClicked = (mealType, index) => {
-        setSelectedMealIndex(mealType + index)
+    const changeClicked = (id) => {
+        setSelectedMealIndex(id)
     }
 
-    const mappedBreakfast = eatenFoodList.breakfast.map((foodItem, index) => {  
+    const mappedBreakfast = fetchedFoodData.filter((foodItem) => {
+        return foodItem.meal_type == "breakfast"
+    }).map((foodItem) => {
         return (
-            <ul key = {index}>
-                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id}>
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
                     setEatenFoodList={setEatenFoodList}
-                    index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
     })
-    const mappedLunch = eatenFoodList.lunch.map((foodItem, index) => {
+    const mappedLunch = fetchedFoodData.filter((foodItem) => {
+        return foodItem.meal_type == "lunch"
+    }).map((foodItem) => {
         return (
-            <ul key = {index}>
-                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id}>
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
                     setEatenFoodList={setEatenFoodList}
-                    index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
     })
-    const mappedDinner = eatenFoodList.dinner.map((foodItem, index) => {
+    const mappedDinner = fetchedFoodData.filter((foodItem) => {
+        return foodItem.meal_type == "dinner"
+    }).map((foodItem) => {
         return (
-            <ul key = {index}>
-                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id}>
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
                     setEatenFoodList={setEatenFoodList}
-                    index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
     })
-    const mappedSnack = eatenFoodList.snack.map((foodItem, index) => {
+    const mappedSnack = fetchedFoodData.filter((foodItem) => {
+        return foodItem.meal_type == "snack"
+    }).map((foodItem) => {
         return (
-            <ul key = {index}>
-                {selectedMealIndex !== foodItem.mealType + index ? <li onClick={() => changeClicked(foodItem.mealType, index)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id}>
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.mid)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
                     eatenFoodList={eatenFoodList}
                     setEatenFoodList={setEatenFoodList}
-                    index={index}
                     changeClicked={changeClicked}/>}
-                <button onClick={() => removeFood(foodItem.mealType, index)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
     })

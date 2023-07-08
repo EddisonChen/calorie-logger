@@ -38,8 +38,8 @@ const AllRoutes = (props) => {
 
     useEffect(() => {
         const fetchUserDetails = async () => {
-            const cleanUrl = (user.sub).replace(/\|/g, "%7C")
-            const response = await fetch(`http://localhost:8080/api/users/${cleanUrl}`, {
+            const cleanUserId = (user.sub).replace(/\|/g, "%7C")
+            const response = await fetch(`http://localhost:8080/api/users/${cleanUserId}`, {
                 method: "GET",
                 contentType: "application/json",
             })
@@ -55,7 +55,8 @@ const AllRoutes = (props) => {
                 date = {date}
                 goalCalories={goalCalories}
                 macronutrients={macronutrients}
-                fetchedUserDetails={fetchedUserDetails}/>}></Route>
+                fetchedUserDetails={fetchedUserDetails}
+                user={user}/>}></Route>
         )
     })
 
