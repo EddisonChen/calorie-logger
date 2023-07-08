@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.calocalcapi.model.Foods;
 import com.example.calocalcapi.repository.FoodsRepository;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,7 +65,7 @@ public class FoodsService {
         }
     }
 
-    public List<Foods> getFoodsByDate(String userId, Date date) {
+    public List<Foods> getFoodsByDate(String userId, LocalDate date) {
         return foodRepo.findAllByUserIdAndDate(userId, date);
     }
 }

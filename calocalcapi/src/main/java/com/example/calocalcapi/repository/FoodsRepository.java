@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.example.calocalcapi.model.Foods;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,5 +19,5 @@ public interface FoodsRepository extends JpaRepository <Foods, Integer>{
     Optional<Foods> findByIdAndUserId(Integer foodId, String userId);
 
     @Query("SELECT f FROM Foods f WHERE f.user.id = :userId AND DATE(f.date) = :date")
-    List<Foods> findAllByUserIdAndDate(@Param("userId")String userId, @Param("date")Date date);
+    List<Foods> findAllByUserIdAndDate(@Param("userId")String userId, @Param("date")LocalDate date);
 }

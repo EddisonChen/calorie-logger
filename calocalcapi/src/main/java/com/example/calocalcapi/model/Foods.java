@@ -3,7 +3,7 @@ package com.example.calocalcapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Entity
@@ -15,7 +15,7 @@ public class Foods {
     private Integer id;
 
     @Column(name="date")
-    private Date date;
+    private LocalDate date;
 
     @Column(name="meal_type")
     private String meal_type;
@@ -51,11 +51,11 @@ public class Foods {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
