@@ -28,7 +28,6 @@ const AllRoutes = (props) => {
             dates.push(currentDatePointer.toLocaleDateString())
             currentDatePointer.setDate(currentDatePointer.getDate() + 1)
         }
-
         return dates
     }
     
@@ -53,8 +52,6 @@ const AllRoutes = (props) => {
         return (
             <Route path={`/log/${date}`} key={date} element={<DailyLog 
                 date = {date}
-                goalCalories={goalCalories}
-                macronutrients={macronutrients}
                 fetchedUserDetails={fetchedUserDetails}
                 user={user}/>}></Route>
         )

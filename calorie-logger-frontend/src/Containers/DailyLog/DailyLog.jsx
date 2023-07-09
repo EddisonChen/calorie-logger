@@ -7,7 +7,7 @@ import NutrientSummary from '../NutrientSummary/NutrientSummary';
 
 const DailyLog = (props) => {
 
-    const {date, goalCalories, macronutrients, fetchedUserDetails, user} = props;
+    const {date, fetchedUserDetails, user} = props;
 
     console.log(fetchedUserDetails)
 
@@ -24,16 +24,9 @@ const DailyLog = (props) => {
     const [futureDate, setFutureDate] = useState(tomStr)
 
     const [dailyCaloriesEaten, setDailyCaloriesEaten] = useState(0)
-    const [remainingCalories, setRemainingCalories] = useState(goalCalories-dailyCaloriesEaten)
+    const [remainingCalories, setRemainingCalories] = useState(fetchedUserDetails.goal_calories-dailyCaloriesEaten)
     const [findFoodClicked, setFindFoodClicked] = useState(false)
     const [mealType, setMealType] = useState()
-
-    const [eatenFoodList, setEatenFoodList] = useState({
-        breakfast: [],
-        lunch: [],
-        dinner: [],
-        snack: []
-    })
 
     const dateSplit = date.split('/')
     const day = dateSplit[1]
@@ -41,7 +34,6 @@ const DailyLog = (props) => {
     const year = dateSplit[2]
     const [formattedDate, setFormattedDate] = useState(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
 
-    // console.log(eatenFoodList)
     console.log(formattedDate)
     
     const [fetchedFoodData, setFetchedFoodData] = useState([])
@@ -92,8 +84,6 @@ const DailyLog = (props) => {
                 {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
-                    eatenFoodList={eatenFoodList}
-                    setEatenFoodList={setEatenFoodList}
                     changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
@@ -107,8 +97,6 @@ const DailyLog = (props) => {
                 {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
-                    eatenFoodList={eatenFoodList}
-                    setEatenFoodList={setEatenFoodList}
                     changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
@@ -122,8 +110,6 @@ const DailyLog = (props) => {
                 {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
-                    eatenFoodList={eatenFoodList}
-                    setEatenFoodList={setEatenFoodList}
                     changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
@@ -137,8 +123,6 @@ const DailyLog = (props) => {
                 {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.mid)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
                     foodItem={foodItem}
-                    eatenFoodList={eatenFoodList}
-                    setEatenFoodList={setEatenFoodList}
                     changeClicked={changeClicked}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
@@ -147,18 +131,6 @@ const DailyLog = (props) => {
 
     useEffect(() => {
         let sum = 0
-        // for (let i = 0; i < eatenFoodList.breakfast.length; i ++) {
-        //     sum += eatenFoodList.breakfast[i].calories
-        // }
-        // for (let i = 0; i < eatenFoodList.lunch.length; i ++) {
-        //     sum += eatenFoodList.lunch[i].calories
-        // }
-        // for (let i = 0; i < eatenFoodList.dinner.length; i ++) {
-        //     sum += eatenFoodList.dinner[i].calories
-        // }
-        // for (let i = 0; i < eatenFoodList.snack.length; i ++) {
-        //     sum += eatenFoodList.snack[i].calories
-        // }
         for (let i = 0; i < fetchedFoodData.length; i ++) {
             sum += fetchedFoodData[i].calories
         }
@@ -166,7 +138,7 @@ const DailyLog = (props) => {
     }, [fetchedFoodData])
 
     useEffect(() => {
-        setRemainingCalories(goalCalories-dailyCaloriesEaten)
+        setRemainingCalories(fetchedUserDetails.goal_calories-dailyCaloriesEaten)
     }, [dailyCaloriesEaten])
 
     const switchToFindFood = (event) => {
@@ -183,7 +155,7 @@ const DailyLog = (props) => {
                 <Link to={`/log/${futureDate}`}>{`>`}</Link>
             </div>
             <div>
-                <p>{fetchedUserDetails.goal_calories} - {dailyCaloriesEaten} = {remainingCalories} calories remaining</p>
+                <p>{parseInt(fetchedUserDetails.goal_calories)} - {dailyCaloriesEaten} = {remainingCalories} calories remaining</p>
             </div>
             <div>
                 <h3>Breakfast</h3>
@@ -192,7 +164,6 @@ const DailyLog = (props) => {
             </div>
             <div>
                 <h3>Lunch</h3>
-                {/* {mappedLunch} */}
                 <button value="lunch" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>
@@ -206,18 +177,16 @@ const DailyLog = (props) => {
                 <button value="snack" onClick={switchToFindFood}>Add Food</button>
             </div>
             <NutrientSummary
-                macronutrients={macronutrients}
-                goalCalories={goalCalories}
-                dailyCaloriesEaten={dailyCaloriesEaten}
-                remainingCalories={remainingCalories}
-                eatenFoodList={eatenFoodList}
+                goalProtein={fetchedUserDetails.goal_protein}
+                goalCarbohydrate={fetchedUserDetails.goal_carbohydrate}
+                goalFat={fetchedUserDetails.goal_fat}
+                fetchedFoodData={fetchedFoodData}
                 />
             </div> : 
             <FindFood
                 mealType={mealType}
                 setFindFoodClicked={setFindFoodClicked}
-                eatenFoodList={eatenFoodList}
-                setEatenFoodList={setEatenFoodList}/>}
+                />}
              
         </div>
     )
