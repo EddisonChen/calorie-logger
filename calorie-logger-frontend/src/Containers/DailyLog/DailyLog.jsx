@@ -41,50 +41,43 @@ const DailyLog = (props) => {
     const year = dateSplit[2]
     const [formattedDate, setFormattedDate] = useState(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
 
-
-    const removeFoodRequest = async (foodId) => {
-        const cleanUserId = (user.sub).replace(/\|/g, "%7C");
-        const response = await fetch(`http://localhost:8080/api/foods/${foodId}?userId=${cleanUserId}`, {
-            method: "DELETE",
-            contentType: "application/json"
-        })
-        const data = await response.json()
-        console.log(data)
-    }
-
-    const removeFood = (foodId) => {
-        // setEatenFoodList(prevList => {
-        //   const updatedList = {
-        //     ...prevList,
-        //     [mealType]: prevList[mealType].filter((_, i) => i !== index)
-        //   };
-        //   return updatedList;
-        // });
-        removeFoodRequest(foodId)
-
-    };
-
     // console.log(eatenFoodList)
     console.log(formattedDate)
     
     const [fetchedFoodData, setFetchedFoodData] = useState([])
 
+    const fetchTodayFood = async () => {
+        console.log(formattedDate)
+        const cleanUserId = (user.sub).replace(/\|/g, "%7C");
+        const response = await fetch(`http://localhost:8080/api/foods/${formattedDate}?userId=${cleanUserId}`, {
+            method: "GET",
+            contentType: "application/json"
+        });
+        const data = await response.json()
+        setFetchedFoodData(data)
+    }
+
     useEffect(()=> {
-        const fetchTodayFood = async () => {
-            console.log(formattedDate)
-            const cleanUserId = (user.sub).replace(/\|/g, "%7C");
-            const response = await fetch(`http://localhost:8080/api/foods/${formattedDate}?userId=${cleanUserId}`, {
-                method: "GET",
-                contentType: "application/json"
-            });
-            const data = await response.json()
-            setFetchedFoodData(data)
-        }
         fetchTodayFood()
     }, [])
 
-    const [selectedMealIndex, setSelectedMealIndex] = useState(null)
+    const removeFoodRequest = async (foodId) => {
+        const cleanUserId = (user.sub).replace(/\|/g, "%7C");
+        await fetch(`http://localhost:8080/api/foods/${foodId}?userId=${cleanUserId}`, {
+            method: "DELETE"
+        }).then(() => {
+            console.log("Delete Sucesssful")
+        }).catch(()=> {
+            console.log("Delete Failed")
+        })
+        fetchTodayFood()
+    }
 
+    const removeFood = (foodId) => {
+        removeFoodRequest(foodId)
+    };
+
+    const [selectedMealIndex, setSelectedMealIndex] = useState(null)
     const changeClicked = (id) => {
         setSelectedMealIndex(id)
     }
@@ -152,26 +145,29 @@ const DailyLog = (props) => {
         )
     })
 
-    // useEffect(() => {
-    //     let sum = 0
-    //     for (let i = 0; i < eatenFoodList.breakfast.length; i ++) {
-    //         sum += eatenFoodList.breakfast[i].calories
-    //     }
-    //     for (let i = 0; i < eatenFoodList.lunch.length; i ++) {
-    //         sum += eatenFoodList.lunch[i].calories
-    //     }
-    //     for (let i = 0; i < eatenFoodList.dinner.length; i ++) {
-    //         sum += eatenFoodList.dinner[i].calories
-    //     }
-    //     for (let i = 0; i < eatenFoodList.snack.length; i ++) {
-    //         sum += eatenFoodList.snack[i].calories
-    //     }
-    //     setDailyCaloriesEaten(sum)
-    // }, [mappedBreakfast, mappedLunch, mappedDinner, mappedSnack])
+    useEffect(() => {
+        let sum = 0
+        // for (let i = 0; i < eatenFoodList.breakfast.length; i ++) {
+        //     sum += eatenFoodList.breakfast[i].calories
+        // }
+        // for (let i = 0; i < eatenFoodList.lunch.length; i ++) {
+        //     sum += eatenFoodList.lunch[i].calories
+        // }
+        // for (let i = 0; i < eatenFoodList.dinner.length; i ++) {
+        //     sum += eatenFoodList.dinner[i].calories
+        // }
+        // for (let i = 0; i < eatenFoodList.snack.length; i ++) {
+        //     sum += eatenFoodList.snack[i].calories
+        // }
+        for (let i = 0; i < fetchedFoodData.length; i ++) {
+            sum += fetchedFoodData[i].calories
+        }
+        setDailyCaloriesEaten(sum)
+    }, [fetchedFoodData])
 
-    // useEffect(() => {
-    //     setRemainingCalories(goalCalories-dailyCaloriesEaten)
-    // }, [dailyCaloriesEaten])
+    useEffect(() => {
+        setRemainingCalories(goalCalories-dailyCaloriesEaten)
+    }, [dailyCaloriesEaten])
 
     const switchToFindFood = (event) => {
         setFindFoodClicked(true)

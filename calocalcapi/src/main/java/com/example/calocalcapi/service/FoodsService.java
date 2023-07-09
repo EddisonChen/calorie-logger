@@ -1,5 +1,6 @@
 package com.example.calocalcapi.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class FoodsService {
         return foodRepo.findAllByUserId(userId);
     }
 
+    @Transactional
     public void deleteFood(Integer foodId, String userId) {
         foodRepo.deleteByIdAndUserId(foodId, userId);
     }
