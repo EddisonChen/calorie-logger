@@ -5,15 +5,15 @@ import { useState, useEffect} from 'react';
 const IndividualFood = (props) => {
     const {item, mealType, user, formattedDate, refreshFetch, setRefreshFetch} = props;
 
-    const [clicked, setClicked] = useState(false)
+    const [expandListFood, setExpandListFood] = useState(false)
     const [foodWeight, setFoodWeight] = useState(item.measures[0].weight)
 
     const changeFoodWeight = (event) => {
         setFoodWeight(event.target.value)
     }
 
-    const changeClicked = () => {
-        setClicked(!clicked)
+    const expandOrContractItem = () => {
+        setExpandListFood(!expandListFood)
     }
 
     const nutritionPerGram = {
@@ -61,37 +61,27 @@ const IndividualFood = (props) => {
                 carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight),
                 user_id: user.sub
             })
+        }).then(() => {
+            setRefreshFetch(!refreshFetch)
         })
         console.log(response)
     }
 
     const addFoodToLog = () => {
         postFoodToDB()
-        console.log(({
-            date: formattedDate,
-            meal_type: mealType,
-            name: item.food.label,
-            amount: parseInt(foodWeight),
-            calories: parseInt(nutritionPerGram.calories*foodWeight),
-            protein: parseInt(nutritionPerGram.protein*foodWeight),
-            fat: parseInt(nutritionPerGram.fat*foodWeight),
-            carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight),
-            user_id: user.sub
-        }))
-        changeClicked()
-        setRefreshFetch(!refreshFetch)
+        expandOrContractItem()
     }
 
     return (
         <li>
-            {clicked == false ?
-            <div onClick={changeClicked}>
+            {expandListFood == false ?
+            <div onClick={expandOrContractItem}>
                 <h3 >{item.food.label}</h3>
                 <p>{item.food.brand}: {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
             </div>
              : 
             <div>
-                <div onClick={changeClicked}>
+                <div onClick={expandOrContractItem}>
                     <h3>{item.food.label}</h3>
                     <div >
                         <h4>{displayNutrients.calories} Calories</h4>

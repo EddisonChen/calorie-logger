@@ -9,8 +9,6 @@ const DailyLog = (props) => {
 
     const {date, fetchedUserDetails, user} = props;
 
-    console.log(fetchedUserDetails)
-
     const currentDate = new Date(date);
 
     const yesterdayDate = new Date(currentDate.setDate(currentDate.getDate()-1))
@@ -33,24 +31,20 @@ const DailyLog = (props) => {
     const month = dateSplit[0]
     const year = dateSplit[2]
     const [formattedDate, setFormattedDate] = useState(`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`);
-
-    console.log(formattedDate)
     
     const [fetchedFoodData, setFetchedFoodData] = useState([])
     const [refreshFetch, setRefreshFetch] = useState(false)
 
-    const fetchTodayFood = async () => {
-        console.log(formattedDate)
-        const cleanUserId = (user.sub).replace(/\|/g, "%7C");
-        const response = await fetch(`http://localhost:8080/api/foods/${formattedDate}?userId=${cleanUserId}`, {
-            method: "GET",
-            contentType: "application/json"
-        });
-        const data = await response.json()
-        setFetchedFoodData(data)
-    }
-
     useEffect(()=> {
+        const fetchTodayFood = async () => {
+            const cleanUserId = (user.sub).replace(/\|/g, "%7C");
+            const response = await fetch(`http://localhost:8080/api/foods/${formattedDate}?userId=${cleanUserId}`, {
+                method: "GET",
+                contentType: "application/json"
+            });
+            const data = await response.json()
+            setFetchedFoodData(data)
+        }
         fetchTodayFood()
     }, [refreshFetch])
 
@@ -60,10 +54,10 @@ const DailyLog = (props) => {
             method: "DELETE"
         }).then(() => {
             console.log("Delete Sucesssful")
+            setRefreshFetch(!refreshFetch)
         }).catch(()=> {
             console.log("Delete Failed")
         })
-        setRefreshFetch(!refreshFetch)
     }
 
     const removeFood = (foodId) => {
@@ -71,7 +65,7 @@ const DailyLog = (props) => {
     };
 
     const [selectedMealIndex, setSelectedMealIndex] = useState(null)
-    const changeClicked = (id) => {
+    const expandOrContractLogFood = (id) => {
         setSelectedMealIndex(id)
     }
 
@@ -82,10 +76,14 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
+                    formattedDate={formattedDate}
+                    user={user}
                     foodItem={foodItem}
-                    changeClicked={changeClicked}/>}
+                    expandOrContractLogFood={expandOrContractLogFood}
+                    setRefreshFetch={setRefreshFetch}
+                    refreshFetch={refreshFetch}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
@@ -95,10 +93,14 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
+                    formattedDate={formattedDate}
+                    user={user}
                     foodItem={foodItem}
-                    changeClicked={changeClicked}/>}
+                    expandOrContractLogFood={expandOrContractLogFood}
+                    setRefreshFetch={setRefreshFetch}
+                    refreshFetch={refreshFetch}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
@@ -108,10 +110,14 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
+                    formattedDate={formattedDate}
+                    user={user}
                     foodItem={foodItem}
-                    changeClicked={changeClicked}/>}
+                    expandOrContractLogFood={expandOrContractLogFood}
+                    setRefreshFetch={setRefreshFetch}
+                    refreshFetch={refreshFetch}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
@@ -121,10 +127,14 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => changeClicked(foodItem.mid)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.mid)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
                 <AdjustFood
+                    formattedDate={formattedDate}
+                    user={user}
                     foodItem={foodItem}
-                    changeClicked={changeClicked}/>}
+                    expandOrContractLogFood={expandOrContractLogFood}
+                    setRefreshFetch={setRefreshFetch}
+                    refreshFetch={refreshFetch}/>}
                 <button onClick={() => removeFood(foodItem.id)}>Remove</button>
             </ul>
         )
@@ -147,7 +157,7 @@ const DailyLog = (props) => {
         setMealType(event.target.value)
     }
 
-    return ( // adjust serving units? might be an issue with the api return tbh
+    return (
         <div>
             {findFoodClicked == false ? <div>
             <div>
@@ -165,6 +175,7 @@ const DailyLog = (props) => {
             </div>
             <div>
                 <h3>Lunch</h3>
+                {mappedLunch}
                 <button value="lunch" onClick={switchToFindFood}>Add Food</button>
             </div>
             <div>

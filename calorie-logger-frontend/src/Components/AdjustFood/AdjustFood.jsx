@@ -2,9 +2,7 @@ import "./AdjustFood.css";
 import {useState, useEffect} from 'react'
 
 const AdjustFood = (props) => {
-    const {foodItem, eatenFoodList, setEatenFoodList, index, changeClicked} = props;
-
-    // console.log(foodItem)
+    const {foodItem, expandOrContractLogFood, refreshFetch, setRefreshFetch, user, formattedDate} = props;
 
     const [foodWeight, setFoodWeight] = useState(foodItem.amount)
 
@@ -41,26 +39,35 @@ const AdjustFood = (props) => {
         })
     }, [foodWeight])
 
-    // console.log(nutritionPerGram)
+    const putFoodInDB = async () => {
+        const cleanUserId = (user.sub).replace(/\|/g, "%7C")
+        const response = await fetch(`http://localhost:8080/api/foods/${foodItem.id}?userId=${cleanUserId}`, {
+            method: "PUT",
+            headers:{"Content-type": "application/json"},
+            body: JSON.stringify({
+                date: formattedDate,
+                meal_type: foodItem.meal_type,
+                name: foodItem.name,
+                amount: parseInt(foodWeight),
+                calories: parseInt(nutritionPerGram.calories*foodWeight),
+                protein: parseInt(nutritionPerGram.protein*foodWeight),
+                fat: parseInt(nutritionPerGram.fat*foodWeight),
+                carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight),
+                user_id: user.sub
+            })
+        }).then(() => {
+            setRefreshFetch(!refreshFetch)
+        })
+        console.log(response)
+    }
 
-    const updateEatenFoodList = () => {
-        setEatenFoodList(prevList => {
-            const updatedList = {
-              ...prevList,
-              [foodItem.mealType]: prevList[foodItem.mealType].map((food, i) => {
-                if (i === index) {
-                  return displayNutrients;
-                }
-                return food;
-              })
-            };
-            return updatedList;
-          });
-        changeClicked('none', -1)
+    const updateFood = () => {
+        putFoodInDB()
+        expandOrContractLogFood(null)
     }
 
     const cancelAdjustment = () => {
-        changeClicked('none', -1)
+        expandOrContractLogFood(null)
     }
 
     return (
@@ -77,7 +84,7 @@ const AdjustFood = (props) => {
             <div>
                 <input type="number" defaultValue={foodItem.amount} onChange={changeFoodWeight}></input> Grams
             </div>
-            <button onClick={updateEatenFoodList}>Update Food</button>
+            <button onClick={updateFood}>Update Food</button>
 
 
         </div>
