@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 
 
 const IndividualFood = (props) => {
-    const {item, mealType, eatenFoodList, setEatenFoodList} = props;
+    const {item, mealType, user, formattedDate, refreshFetch, setRefreshFetch} = props;
 
     const [clicked, setClicked] = useState(false)
     const [foodWeight, setFoodWeight] = useState(item.measures[0].weight)
@@ -45,11 +45,41 @@ const IndividualFood = (props) => {
         })
     }, [foodWeight])
 
+    const postFoodToDB = async () => {
+        const cleanUserId = (user.sub).replace(/\|/g, "%7C")
+        const response = await fetch(`http://localhost:8080/api/foods?userId=${cleanUserId}`, {
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                date: formattedDate,
+                meal_type: mealType,
+                name: item.food.label,
+                amount: parseInt(foodWeight),
+                calories: parseInt(nutritionPerGram.calories*foodWeight),
+                protein: parseInt(nutritionPerGram.protein*foodWeight),
+                fat: parseInt(nutritionPerGram.fat*foodWeight),
+                carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight),
+                user_id: user.sub
+            })
+        })
+        console.log(response)
+    }
+
     const addFoodToLog = () => {
-        const tempEatenFoodList = eatenFoodList
-        tempEatenFoodList[mealType].push(displayNutrients)
-        setEatenFoodList(tempEatenFoodList)
+        postFoodToDB()
+        console.log(({
+            date: formattedDate,
+            meal_type: mealType,
+            name: item.food.label,
+            amount: parseInt(foodWeight),
+            calories: parseInt(nutritionPerGram.calories*foodWeight),
+            protein: parseInt(nutritionPerGram.protein*foodWeight),
+            fat: parseInt(nutritionPerGram.fat*foodWeight),
+            carbohydrate: parseInt(nutritionPerGram.carbohydrate*foodWeight),
+            user_id: user.sub
+        }))
         changeClicked()
+        setRefreshFetch(!refreshFetch)
     }
 
     return (

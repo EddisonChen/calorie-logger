@@ -37,6 +37,7 @@ const DailyLog = (props) => {
     console.log(formattedDate)
     
     const [fetchedFoodData, setFetchedFoodData] = useState([])
+    const [refreshFetch, setRefreshFetch] = useState(false)
 
     const fetchTodayFood = async () => {
         console.log(formattedDate)
@@ -51,7 +52,7 @@ const DailyLog = (props) => {
 
     useEffect(()=> {
         fetchTodayFood()
-    }, [])
+    }, [refreshFetch])
 
     const removeFoodRequest = async (foodId) => {
         const cleanUserId = (user.sub).replace(/\|/g, "%7C");
@@ -62,7 +63,7 @@ const DailyLog = (props) => {
         }).catch(()=> {
             console.log("Delete Failed")
         })
-        fetchTodayFood()
+        setRefreshFetch(!refreshFetch)
     }
 
     const removeFood = (foodId) => {
@@ -186,6 +187,10 @@ const DailyLog = (props) => {
             <FindFood
                 mealType={mealType}
                 setFindFoodClicked={setFindFoodClicked}
+                user={user}
+                refreshFetch={refreshFetch}
+                setRefreshFetch={setRefreshFetch}
+                formattedDate={formattedDate}
                 />}
              
         </div>

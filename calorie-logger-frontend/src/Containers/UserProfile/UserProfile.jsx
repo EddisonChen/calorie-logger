@@ -5,7 +5,7 @@ import './UserProfile.css';
 
 const UserProfile = (props) => {
 
-    const {goalCalories, setGoalCalories, macronutrients, user, fetchedUserDetails} = props;
+    const {goalCalories, setGoalCalories, user, fetchedUserDetails} = props;
 
     const [unitType, setUnitType] = useState('');
     const [userPhysicalAttributes, setUserPhysicalAttributes] = useState({
@@ -14,6 +14,11 @@ const UserProfile = (props) => {
         weight: '',
         age: '',
         activityLevel: '1.2'
+    });
+    const [macronutrients, setMacronutrients] = useState({
+        protein: ".3",
+        fat: ".3",
+        carbohydrate: ".4"
     });
     const [tdee, setTdee] = useState(null);
     const [userGoal, setUserGoal] = useState(tdee);

@@ -11,11 +11,6 @@ const AllRoutes = (props) => {
     const location = useLocation();
 
     const [goalCalories, setGoalCalories] = useState(null);
-    const [macronutrients, setMacronutrients] = useState({
-        protein: ".3",
-        fat: ".3",
-        carbohydrate: ".4"
-    });
 
     const generateDates = () => {
         const currentDate = new Date();
@@ -64,7 +59,6 @@ const AllRoutes = (props) => {
             <Route path="/userprofile" element={<UserProfile 
                 goalCalories={goalCalories} 
                 setGoalCalories={setGoalCalories}
-                macronutrients={macronutrients}
                 user={user}
                 fetchedUserDetails={fetchedUserDetails}/>}/>
             {renderDailyLog}

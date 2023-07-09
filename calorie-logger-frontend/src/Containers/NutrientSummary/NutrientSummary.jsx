@@ -18,7 +18,7 @@ const NutrientSummary = (props) => {
         for (let i = 0; i < fetchedFoodData.length; i ++) {
             sumCarb += fetchedFoodData[i].carbohydrate
             sumProtein += fetchedFoodData[i].protein
-            sumFat += fetchedFoodData[i].Fat
+            sumFat += fetchedFoodData[i].fat
         }
         setEatenMacronutrients({
             carbohydrate: sumCarb,
