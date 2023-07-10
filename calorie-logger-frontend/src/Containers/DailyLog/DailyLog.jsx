@@ -160,14 +160,26 @@ const DailyLog = (props) => {
     return (
         <div>
             {findFoodClicked == false ? <div>
-            <div>
-                <Link to={`/log/${pastDate}`}>{`<`}</Link>
-                <h1>Daily log: {date}</h1>
-                <Link to={`/log/${futureDate}`}>{`>`}</Link>
+            <div className="daily-log-header">
+                <Link to={`/log/${pastDate}`} className="change-date-button">{`◄`}</Link>
+                <h2>{date}</h2>
+                <Link to={`/log/${futureDate}`} className="change-date-button">{`►`}</Link>
             </div>
-            <div>
-                <p>{parseInt(fetchedUserDetails.goal_calories)} - {dailyCaloriesEaten} = {remainingCalories} calories remaining</p>
-            </div>
+            <table className="log-table">
+                <tbody>
+                    <tr className="table-header-row">
+                        <th className="table-value">Budget</th>
+                        <th className="table-value">Food</th>
+                        <th className="table-value">Remaining</th>
+                    </tr>
+                    <tr className="table-value-row">
+                        <td className="table-value">{fetchedUserDetails.goal_calories}</td>
+                        <td className="table-value">{dailyCaloriesEaten}</td>
+                        <td className="table-value">{remainingCalories} cals.</td>
+                    </tr>
+                </tbody>
+            </table>
+                {/* <p>{parseInt(fetchedUserDetails.goal_calories)} - {dailyCaloriesEaten} = {remainingCalories} cals. remaining</p> */}
             <div>
                 <h3>Breakfast</h3>
                 {mappedBreakfast}
