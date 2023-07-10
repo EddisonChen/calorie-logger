@@ -99,19 +99,21 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id} className="log-food-list">
-                {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
-                    <div>
-                        <p className="food-title">{foodItem.name}</p>
-                        <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
-                    </div></li> :
-                <AdjustFood
-                    formattedDate={formattedDate}
-                    user={user}
-                    foodItem={foodItem}
-                    expandOrContractLogFood={expandOrContractLogFood}
-                    setRefreshFetch={setRefreshFetch}
-                    refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                <div className="log-food-list-item-container">
+                    {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
+                        <div>
+                            <p className="food-title">{foodItem.name}</p>
+                            <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                        </div></li> :
+                    <AdjustFood
+                        formattedDate={formattedDate}
+                        user={user}
+                        foodItem={foodItem}
+                        expandOrContractLogFood={expandOrContractLogFood}
+                        setRefreshFetch={setRefreshFetch}
+                        refreshFetch={refreshFetch}/>}
+                    <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                </div>
             </ul>
         )
     })
@@ -120,19 +122,21 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id} className="log-food-list">
-                {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
-                    <div>
-                        <p className="food-title">{foodItem.name}</p>
-                        <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
-                    </div></li> :
-                <AdjustFood
-                    formattedDate={formattedDate}
-                    user={user}
-                    foodItem={foodItem}
-                    expandOrContractLogFood={expandOrContractLogFood}
-                    setRefreshFetch={setRefreshFetch}
-                    refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                <div className="log-food-list-item-container">
+                    {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
+                        <div>
+                            <p className="food-title">{foodItem.name}</p>
+                            <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                        </div></li> :
+                    <AdjustFood
+                        formattedDate={formattedDate}
+                        user={user}
+                        foodItem={foodItem}
+                        expandOrContractLogFood={expandOrContractLogFood}
+                        setRefreshFetch={setRefreshFetch}
+                        refreshFetch={refreshFetch}/>}
+                    <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                </div>
             </ul>
         )
     })
@@ -141,19 +145,21 @@ const DailyLog = (props) => {
     }).map((foodItem) => {
         return (
             <ul key = {foodItem.id} className="log-food-list">
-                {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.mid)}>
-                    <div>
-                        <p className="food-title">{foodItem.name}</p>
-                        <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
-                    </div></li> :
-                <AdjustFood
-                    formattedDate={formattedDate}
-                    user={user}
-                    foodItem={foodItem}
-                    expandOrContractLogFood={expandOrContractLogFood}
-                    setRefreshFetch={setRefreshFetch}
-                    refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                <div className="log-food-list-item-container">
+                    {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
+                        <div>
+                            <p className="food-title">{foodItem.name}</p>
+                            <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                        </div></li> :
+                    <AdjustFood
+                        formattedDate={formattedDate}
+                        user={user}
+                        foodItem={foodItem}
+                        expandOrContractLogFood={expandOrContractLogFood}
+                        setRefreshFetch={setRefreshFetch}
+                        refreshFetch={refreshFetch}/>}
+                    <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                </div>
             </ul>
         )
     })
@@ -248,38 +254,40 @@ const DailyLog = (props) => {
                 switchBetweenSummaries={switchBetweenSummaries}
                 />
             </div>}
-            <div>
-                <div className="meal-title-container">
-                    <h4 className="meal-title">Breakfast</h4>
-                    <p className="meal-calorie-value">{breakfastCalories} cals.</p>
-                    <button value="breakfast" onClick={switchToFindFood} className="add-button button">➕</button>
+            <div className="log-meal-section-container">
+                <div className="log-meal-section">
+                    <div className="meal-title-container">
+                        <h4 className="meal-title">Breakfast</h4>
+                        <p className="meal-calorie-value">{breakfastCalories} cals.</p>
+                        <button value="breakfast" onClick={switchToFindFood} className="add-button button">➕</button>
+                    </div>
+                    {mappedBreakfast}
                 </div>
-                {mappedBreakfast}
-            </div>
-            <div>
-                <div className="meal-title-container">
-                    <h4 className="meal-title">Lunch</h4>
-                    <p className="meal-calorie-value">{lunchCalories} cals.</p>
-                    <button value="lunch" onClick={switchToFindFood} className="add-button button">➕</button>
+                <div className="log-meal-section">
+                    <div className="meal-title-container">
+                        <h4 className="meal-title">Lunch</h4>
+                        <p className="meal-calorie-value">{lunchCalories} cals.</p>
+                        <button value="lunch" onClick={switchToFindFood} className="add-button button">➕</button>
+                    </div>
+                    {mappedLunch}
                 </div>
-                {mappedLunch}
-            </div>
-            <div>
-                <div className="meal-title-container">
-                    <h4 className="meal-title">Dinner</h4>
-                    <p className="meal-calorie-value">{dinnerCalories} cals.</p>
-                    <button value="dinner" onClick={switchToFindFood} className="add-button button">➕</button>
+                <div className="log-meal-section">
+                    <div className="meal-title-container">
+                        <h4 className="meal-title">Dinner</h4>
+                        <p className="meal-calorie-value">{dinnerCalories} cals.</p>
+                        <button value="dinner" onClick={switchToFindFood} className="add-button button">➕</button>
+                    </div>
+                    
+                    {mappedDinner}
                 </div>
-                
-                {mappedDinner}
-            </div>
-            <div className="log-snack-section">
-                <div className="meal-title-container">
-                    <h4 className="meal-title">Snack</h4>
-                    <p className="meal-calorie-value">{snackCalories} cals.</p>
-                    <button value="snack" onClick={switchToFindFood} className="add-button button">➕</button>
+                <div className="log-meal-section">
+                    <div className="meal-title-container">
+                        <h4 className="meal-title">Snack</h4>
+                        <p className="meal-calorie-value">{snackCalories} cals.</p>
+                        <button value="snack" onClick={switchToFindFood} className="add-button button">➕</button>
+                    </div>
+                    {mappedSnack}   
                 </div>
-                {mappedSnack}   
             </div>
             </div> : 
             <FindFood
