@@ -49,8 +49,8 @@
 .remove-button {
     background-color: rgb(80, 107, 161);
     border: none;
-    padding: 6px 10px 6px 10px;
-    margin-right: 3px;
+    padding: 4px 8px 4px 8px;
+    margin: 10px 10px 0px 15px;
 }
 
 .remove-button:hover {
@@ -112,5 +112,122 @@
     margin-bottom: 50px;
 }
 
-/* .log-meal-section {
-} */
+@media screen and (min-width: 500px) {
+    .daily-log-header {
+        padding-left: 50px;
+        padding-right: 50px;
+        font-size: 20px;
+    }
+    .change-date-button {
+        font-size: 25px;
+    }
+    .table-value, .meal-title {
+        font-size: 18px;
+    }
+    .food-title {
+        font-size: 17px;
+    }
+    .food-info, .meal-calorie-value, .add-button, .remove-button {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .daily-log-header {
+        padding-left: 100px;
+        padding-right: 100px;
+        font-size: 25px;
+    }
+    .change-date-button {
+        font-size: 30px;
+    }
+    .table-value, .meal-title {
+        font-size: 20px;
+    }
+    .food-title {
+        font-size: 19px;
+    }
+    .food-info, .meal-calorie-value, .add-button, .remove-button {
+        font-size: 17px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .daily-log-header {
+        padding-left: 150px;
+        padding-right: 150px;
+        font-size: 30px;
+    }
+    .change-date-button {
+        font-size: 35px;
+    }
+    .table-value, .meal-title {
+        font-size: 23px;
+    }
+    .food-title {
+        font-size: 21px;
+    }
+    .food-info, .meal-calorie-value, .add-button, .remove-button {
+        font-size: 19px;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .daily-log-header {
+        padding-left: 200px;
+        padding-right: 200px;
+        font-size: 35px;
+    }
+    .change-date-button {
+        font-size: 40px;
+    }
+    .table-value, .meal-title {
+        font-size: 25px;
+    }
+    .food-title {
+        font-size: 23px;
+    }
+    .food-info, .meal-calorie-value, .add-button, .remove-button {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .daily-log-header {
+        padding-left: 300px;
+        padding-right: 300px;
+        font-size: 40px;
+    }
+    .change-date-button {
+        font-size: 45px;
+    }
+    .table-value, .meal-title {
+        font-size: 27px;
+    }
+    .food-title {
+        font-size: 25px;
+    }
+    .food-info, .meal-calorie-value, .add-button, .remove-button {
+        font-size: 21px;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    .daily-log-header {
+        padding-left: 500px;
+        padding-right: 500px;
+        font-size: 45px;
+    }
+    .change-date-button {
+        font-size: 50px;
+    }
+    .table-value, .meal-title {
+        font-size: 30px;
+    }
+    .food-title {
+        font-size: 26px;
+    }
+    .food-info, .meal-calorie-value, .add-button, .remove-button {
+        font-size: 23px;
+    }
+}

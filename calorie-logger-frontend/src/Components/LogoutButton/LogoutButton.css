@@ -7,3 +7,17 @@
 .logout-button {
     margin: 5px;
 }
+
+@media screen and (min-width: 400px) {
+    .logout-button {
+        padding: 5px 10px 5px 10px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .logout-button {
+        padding: 7px 15px 7px 15px;
+        font-size: 20px;
+    }
+}

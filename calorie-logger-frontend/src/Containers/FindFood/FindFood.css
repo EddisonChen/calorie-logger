@@ -27,4 +27,83 @@
 
 .food-list {
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+}
+
+@media screen and (min-width: 400px) {
+    .find-food-title-container {
+        padding-right: 20%;
+        font-size: 20px;
+    }
+    .back-button, .submit-button {
+        font-size: 16px;
+    }
+    .food-search-container, .food-list {
+        padding-left: 21%;
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 550px) {
+    .find-food-title-container {
+        padding-right: 30%;
+        font-size: 20px;
+    }
+    .back-button, .submit-button {
+        font-size: 18px;
+    }
+    .food-search-container, .food-list {
+        padding-left: 30%;
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 850px) {
+    .find-food-title-container {
+        padding-right: 35%;
+        font-size: 25px;
+    }
+    .back-button, .submit-button {
+        font-size: 20px;
+    }
+    .food-search-container {
+        padding-left: 35%;
+    }
+    .food-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 45px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .find-food-title-container {
+        padding-right: 40%;
+    }
+    .back-button, .submit-button {
+        font-size: 22px;
+    }
+    .food-search-container {
+        padding-left: 40%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .find-food-title-container {
+        padding-right: 43%;
+        font-size: 30px;
+    }
+    .back-button, .submit-button {
+        font-size: 24px;
+    }
+    .food-search-container {
+        padding-left: 43%;
+    }
+    .food-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 45px;
+    }
 }

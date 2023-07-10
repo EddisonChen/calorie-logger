@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 
 
 const IndividualFood = (props) => {
-    const {item, mealType, user, formattedDate, refreshFetch, setRefreshFetch} = props;
+    const {item, mealType, user, formattedDate, refreshFetch, setRefreshFetch, switchToDailyLog} = props;
 
     const [expandListFood, setExpandListFood] = useState(false)
     const [foodWeight, setFoodWeight] = useState(item.measures[0].weight)
@@ -69,18 +69,18 @@ const IndividualFood = (props) => {
 
     const addFoodToLog = () => {
         postFoodToDB()
-        expandOrContractItem()
+        switchToDailyLog()
     }
 
     return (
-        <li className="contracted-food-list-item">
+        <li>
             {expandListFood == false ?
-            <div onClick={expandOrContractItem}>
+            <div className="contracted-food-list-item" onClick={expandOrContractItem}>
                 <p className="contracted-food-list-item-name">{item.food.label}</p>
                 <p className="contracted-food-list-item-info">{item.food.brand}: {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
             </div>
              : 
-            <div>
+            <div className="expanded-food-list-item">
                 <div onClick={expandOrContractItem}>
                     <h3 className="expanded-food-list-item-name">{item.food.label}</h3>
                     <div >

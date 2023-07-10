@@ -16,6 +16,10 @@ const FindFood = (props) => {
         setSearchValue(cleanInput)
     }
 
+    const switchToDailyLog = () => {
+        setFindFoodClicked(false)
+    }
+
     async function foodFetch(event) {
         event.preventDefault()
         const response = await fetch(`https://api.edamam.com/api/food-database/v2/parser?app_id=${apiInfo.appId}&app_key=%20${apiInfo.apiKey}%09&ingr=${searchValue}&nutrition-type=logging`, {
@@ -34,6 +38,7 @@ const FindFood = (props) => {
                     refreshFetch={refreshFetch}
                     setRefreshFetch={setRefreshFetch}
                     formattedDate={formattedDate}
+                    switchToDailyLog={switchToDailyLog}
                     />
             )
         })
@@ -42,11 +47,7 @@ const FindFood = (props) => {
 
     // upc https://api.edamam.com/api/food-database/v2/parser?app_id=932a20f2&app_key=%20577cb6b0089814cd8e636dd9c2fc554a%09&upc=026200117058&nutrition-type=logging&category=packaged-foods
 
-    console.log(foodList)
-
-    const switchToDailyLog = () => {
-        setFindFoodClicked(false)
-    }
+    
 
     return (
         <div>
@@ -57,7 +58,7 @@ const FindFood = (props) => {
                 </div>
                 <form className="food-search-container">
                     <input type="text" placeholder="Search For Food" onChange={updateSearchValue} className="food-search-bar"></input>
-                    <input type="submit" onClick={foodFetch} className="button"></input>
+                    <input type="submit" onClick={foodFetch} className="submit-button button"></input>
                 </form>
             </div>
             <ul className="food-list">

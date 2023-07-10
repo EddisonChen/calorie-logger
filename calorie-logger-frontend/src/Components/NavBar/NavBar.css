@@ -18,3 +18,9 @@
 .nav-bar-item:hover {
     color: chocolate;
 }
+
+@media screen and (min-height: 1000px) {
+    .nav-bar-item {
+        font-size: 30px;
+    }
+}

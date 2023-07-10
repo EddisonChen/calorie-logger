@@ -38,3 +38,21 @@
     text-align: center;
     width: 30%;
 }
+
+@media screen and (min-width: 500px) {
+    .contracted-food-list-item-name, .expanded-food-list-item-name {
+        font-size: 19px;
+    }
+    .contracted-food-list-item-info, .expanded-food-list-item-info {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .contracted-food-list-item-name, .expanded-food-list-item-name {
+        font-size: 21px;
+    }
+    .contracted-food-list-item-info, .expanded-food-list-item-info {
+        font-size: 18px;
+    }
+}

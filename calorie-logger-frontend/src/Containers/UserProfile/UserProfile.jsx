@@ -158,6 +158,7 @@ const UserProfile = (props) => {
             <div>
                 <h3 className="info-header">Your Prior Information</h3>
                 <p className="info-statement">Please fill out the above form if any factors have changed.</p>
+                <div className="user-info-table-container">
                 <table className="user-info-table">
                     <tbody>
                         <tr>
@@ -176,6 +177,8 @@ const UserProfile = (props) => {
                         </tr>
                     </tbody>
                 </table>
+                </div>
+                
                 <table className="macronutrients-table">
                     <tbody>
                         <tr>
@@ -251,7 +254,7 @@ const UserProfile = (props) => {
                     
                 </form>
                 
-                {tdee == null ? <h4 className="incomplete-form-message">Please fill out the entire form to recalculate.</h4> : 
+                {tdee == null ? <p className="incomplete-form-message">Please fill out the entire form to recalculate.</p> : 
                 <div>
                     <h3 className="info-header">Your Updated Information</h3>
                     <p className="info-statement">Your estimated total daily energy expenditure is {tdee} calories per day.</p>
