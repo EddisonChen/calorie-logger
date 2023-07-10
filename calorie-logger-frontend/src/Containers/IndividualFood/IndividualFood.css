@@ -1,0 +1,40 @@
+.contracted-food-list-item-info, .contracted-food-list-item-name {
+    margin: 0;
+    font-size: 16px;
+}
+
+.contracted-food-list-item-info {
+    color: rgb(199, 201, 202);
+    font-size: 14px;
+    text-indent: 8px;
+}
+
+.contracted-food-list-item {
+    margin-bottom: 10px;
+}
+
+.expanded-food-list-item-info, .expanded-food-list-item-name {
+    margin: 0;
+}
+
+.expanded-food-list-item-name {
+    font-size: 16px;
+    font-weight: 550;
+}
+
+.expanded-food-list-item-info {
+    text-indent: 15px;
+    font-size: 14px;
+    color: rgb(199, 201, 202);
+}
+
+.change-add-food-weight-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.change-add-food-weight-input {
+    border-radius: 5px;
+    text-align: center;
+    width: 30%;
+}

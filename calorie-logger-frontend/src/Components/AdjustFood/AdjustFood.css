@@ -1,0 +1,26 @@
+.adjust-nutrient-title {
+    margin: 0;
+}
+
+.adjust-nutrient-value {
+    font-size: 14px;
+    margin: 0;
+    color: rgb(199, 201, 202);
+    text-indent: 15px;
+}
+
+.adjust-nutrient-info {
+    margin-bottom: 7px;
+}
+
+.update-food-button {
+    margin-bottom: 10px;
+    padding: 5px 10px 5px 10px;
+}
+
+.adjust-weight-input {
+    border-radius: 5px;
+    text-align: center;
+    width: 30%;
+    margin-bottom: 7px;
+}

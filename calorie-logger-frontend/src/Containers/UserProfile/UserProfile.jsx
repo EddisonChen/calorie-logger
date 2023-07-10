@@ -246,7 +246,7 @@ const UserProfile = (props) => {
                         </select>
                     </div>
                     <div className="user-profile-input-container">
-                        <button type="button" onClick={calculateTdee} className="user-profile-submit-button">Update</button>
+                        <button type="button" onClick={calculateTdee} className="user-profile-submit-button button">Update</button>
                     </div>
                     
                 </form>
@@ -258,9 +258,9 @@ const UserProfile = (props) => {
                     <p className="info-statement">In accordance with your goals, you should eat {goalCalories} calories per day.</p>
                     <h3 className="info-header">Adjust Calories</h3>
                     <div className="adjust-calories-form">
-                        <button className="adjust-calories-button" onClick={changeGoalCalories}>-</button>
+                        <button className="adjust-calories-button button" onClick={changeGoalCalories}>-</button>
                         <h4 className="adjust-calories-value">{goalCalories}</h4>
-                        <button className="adjust-calories-button" onClick={changeGoalCalories}>+</button>
+                        <button className="adjust-calories-button button" onClick={changeGoalCalories}>+</button>
                     </div>
                    
                     <table className="macronutrients-table">

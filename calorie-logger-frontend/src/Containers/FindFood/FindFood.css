@@ -1,0 +1,30 @@
+.find-food-title {
+    margin: 5px 10px 5px 10px;
+}
+
+.back-button {
+    margin-left: 10px;
+    padding: 0px 15px 0px 15px;
+}
+
+.find-food-title-container {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+
+.food-search-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 12px;
+}
+
+.food-search-bar {
+    border-radius: 7px;
+    text-align: center;
+}
+
+.food-list {
+    margin-bottom: 40px;
+}

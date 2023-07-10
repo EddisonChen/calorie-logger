@@ -73,18 +73,18 @@ const AdjustFood = (props) => {
     return (
         <div>
             <div onClick={cancelAdjustment}>
-                <h4>{foodItem.name}</h4>
+                <p className="adjust-nutrient-title">{foodItem.name}</p>
+                <div className="adjust-nutrient-info">
+                    <p className="adjust-nutrient-value">{displayNutrients.calories} Calories</p>
+                    <p className="adjust-nutrient-value">{displayNutrients.protein}g Protein</p>
+                    <p className="adjust-nutrient-value">{displayNutrients.fat}g Fat</p>
+                    <p className="adjust-nutrient-value">{displayNutrients.carbohydrate}g Carbohydrate</p>
+                </div>
+            </div>
             <div>
-                <h4>{displayNutrients.calories} Calories</h4>
-                <h5>{displayNutrients.protein}g Protein</h5>
-                <h5>{displayNutrients.fat}g Fat</h5>
-                <h5>{displayNutrients.carbohydrate}g Carbohydrate</h5>
+                <input type="number" defaultValue={foodItem.amount} onChange={changeFoodWeight} className="adjust-weight-input"></input> Grams
             </div>
-            </div>
-            <div>
-                <input type="number" defaultValue={foodItem.amount} onChange={changeFoodWeight}></input> Grams
-            </div>
-            <button onClick={updateFood}>Update Food</button>
+            <button onClick={updateFood} className="update-food-button button">Update Food</button>
 
 
         </div>

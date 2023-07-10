@@ -73,28 +73,27 @@ const IndividualFood = (props) => {
     }
 
     return (
-        <li>
+        <li className="contracted-food-list-item">
             {expandListFood == false ?
             <div onClick={expandOrContractItem}>
-                <h3 >{item.food.label}</h3>
-                <p>{item.food.brand}: {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
+                <p className="contracted-food-list-item-name">{item.food.label}</p>
+                <p className="contracted-food-list-item-info">{item.food.brand}: {(item.food.nutrients.ENERC_KCAL).toFixed()} calories per {(item.measures[0].weight.toFixed())} grams</p>
             </div>
              : 
             <div>
                 <div onClick={expandOrContractItem}>
-                    <h3>{item.food.label}</h3>
+                    <h3 className="expanded-food-list-item-name">{item.food.label}</h3>
                     <div >
-                        <h4>{displayNutrients.calories} Calories</h4>
-                        <h5>{displayNutrients.protein}g Protein</h5>
-                        <h5>{displayNutrients.fat}g Fat</h5>
-                        <h5>{displayNutrients.carbohydrate}g Carbohydrate</h5>
+                        <p className="expanded-food-list-item-info">{displayNutrients.calories} Calories</p>
+                        <p className="expanded-food-list-item-info">{displayNutrients.protein}g Protein</p>
+                        <p className="expanded-food-list-item-info">{displayNutrients.fat}g Fat</p>
+                        <p className="expanded-food-list-item-info">{displayNutrients.carbohydrate}g Carbohydrate</p>
                     </div>
                 </div>
-                <div>
-                    <input type="number" defaultValue={item.measures[0].weight.toFixed()} onChange={changeFoodWeight}></input> Grams
+                <div className="change-add-food-weight-container">
+                    <input type="number" defaultValue={item.measures[0].weight.toFixed()} onChange={changeFoodWeight} className="change-add-food-weight-input"></input> Grams
                 </div>
-                <button onClick={addFoodToLog}>Add Food</button>
-                
+                <button onClick={addFoodToLog} className="button">Add Food</button>
             </div>}
         </li>
     )

@@ -51,14 +51,16 @@ const FindFood = (props) => {
     return (
         <div>
             <div>
-                <h2>Add to {mealType}</h2>
-                <button onClick={switchToDailyLog}>Back</button>
-                <form>
-                    <input type="text" placeholder="Search For Food" onChange={updateSearchValue}></input>
-                    <input type="submit" onClick={foodFetch}></input>
+                <div className='find-food-title-container'>
+                    <button onClick={switchToDailyLog} className='back-button button'>Back</button>
+                    <h3 className="find-food-title">Add to {mealType}</h3>  
+                </div>
+                <form className="food-search-container">
+                    <input type="text" placeholder="Search For Food" onChange={updateSearchValue} className="food-search-bar"></input>
+                    <input type="submit" onClick={foodFetch} className="button"></input>
                 </form>
             </div>
-            <ul>
+            <ul className="food-list">
                 {foodList}
             </ul>
         </div>

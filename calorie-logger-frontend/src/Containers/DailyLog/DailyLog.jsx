@@ -75,16 +75,22 @@ const DailyLog = (props) => {
         return foodItem.meal_type == "breakfast"
     }).map((foodItem) => {
         return (
-            <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
-                <AdjustFood
-                    formattedDate={formattedDate}
-                    user={user}
-                    foodItem={foodItem}
-                    expandOrContractLogFood={expandOrContractLogFood}
-                    setRefreshFetch={setRefreshFetch}
-                    refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
+            <ul key = {foodItem.id} className="log-food-list">
+                <div className="log-food-list-item-container">
+                    {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
+                        <div className="collapsed-food-item">
+                            <p className="food-title">{foodItem.name}</p>
+                            <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                        </div></li> :
+                    <AdjustFood
+                        formattedDate={formattedDate}
+                        user={user}
+                        foodItem={foodItem}
+                        expandOrContractLogFood={expandOrContractLogFood}
+                        setRefreshFetch={setRefreshFetch}
+                        refreshFetch={refreshFetch}/>}
+                    <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
+                </div>
             </ul>
         )
     })
@@ -92,8 +98,12 @@ const DailyLog = (props) => {
         return foodItem.meal_type == "lunch"
     }).map((foodItem) => {
         return (
-            <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id} className="log-food-list">
+                {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
+                    <div>
+                        <p className="food-title">{foodItem.name}</p>
+                        <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                    </div></li> :
                 <AdjustFood
                     formattedDate={formattedDate}
                     user={user}
@@ -101,7 +111,7 @@ const DailyLog = (props) => {
                     expandOrContractLogFood={expandOrContractLogFood}
                     setRefreshFetch={setRefreshFetch}
                     refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
             </ul>
         )
     })
@@ -109,8 +119,12 @@ const DailyLog = (props) => {
         return foodItem.meal_type == "dinner"
     }).map((foodItem) => {
         return (
-            <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.id)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id} className="log-food-list">
+                {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.id)}>
+                    <div>
+                        <p className="food-title">{foodItem.name}</p>
+                        <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                    </div></li> :
                 <AdjustFood
                     formattedDate={formattedDate}
                     user={user}
@@ -118,7 +132,7 @@ const DailyLog = (props) => {
                     expandOrContractLogFood={expandOrContractLogFood}
                     setRefreshFetch={setRefreshFetch}
                     refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
             </ul>
         )
     })
@@ -126,8 +140,12 @@ const DailyLog = (props) => {
         return foodItem.meal_type == "snack"
     }).map((foodItem) => {
         return (
-            <ul key = {foodItem.id}>
-                {selectedMealIndex !== foodItem.id ? <li onClick={() => expandOrContractLogFood(foodItem.mid)}>{foodItem.name}, {foodItem.amount} grams, {foodItem.calories} calories</li> :
+            <ul key = {foodItem.id} className="log-food-list">
+                {selectedMealIndex !== foodItem.id ? <li className="collapsed-food-item" onClick={() => expandOrContractLogFood(foodItem.mid)}>
+                    <div>
+                        <p className="food-title">{foodItem.name}</p>
+                        <p className="food-info">{foodItem.amount} grams, {foodItem.calories} calories</p>
+                    </div></li> :
                 <AdjustFood
                     formattedDate={formattedDate}
                     user={user}
@@ -135,12 +153,45 @@ const DailyLog = (props) => {
                     expandOrContractLogFood={expandOrContractLogFood}
                     setRefreshFetch={setRefreshFetch}
                     refreshFetch={refreshFetch}/>}
-                <button onClick={() => removeFood(foodItem.id)}>Remove</button>
+                <button onClick={() => removeFood(foodItem.id)} className='remove-button button'>🗑️</button>
             </ul>
         )
     })
 
+    const [breakfastCalories, setBreakfastCalories] = useState(0)
+    const [lunchCalories, setLunchCalories] = useState(0)
+    const [dinnerCalories, setDinnerCalories] = useState(0)
+    const [snackCalories, setSnackCalories] = useState(0)
+
     useEffect(() => {
+        let breakfastSum = 0
+        for (let i = 0; i < fetchedFoodData.length; i ++) {
+            if (fetchedFoodData[i].meal_type == "breakfast") {
+                breakfastSum += fetchedFoodData[i].calories
+            }
+            setBreakfastCalories(breakfastSum)
+        }
+        let lunchSum = 0
+        for (let i = 0; i < fetchedFoodData.length; i ++) {
+            if (fetchedFoodData[i].meal_type == "lunch") {
+                lunchSum += fetchedFoodData[i].calories
+            }
+        }
+        setLunchCalories(lunchSum)
+        let dinnerSum = 0
+        for (let i = 0; i < fetchedFoodData.length; i ++) {
+            if (fetchedFoodData[i].meal_type == "dinner") {
+                dinnerSum += fetchedFoodData[i].calories
+            }
+        }
+        setDinnerCalories(dinnerSum)
+        let snackSum = 0
+        for (let i = 0; i < fetchedFoodData.length; i ++) {
+            if (fetchedFoodData[i].meal_type == "snack") {
+                snackSum += fetchedFoodData[i].calories
+            }
+        }
+        setSnackCalories(snackSum)
         let sum = 0
         for (let i = 0; i < fetchedFoodData.length; i ++) {
             sum += fetchedFoodData[i].calories
@@ -157,6 +208,12 @@ const DailyLog = (props) => {
         setMealType(event.target.value)
     }
 
+    const [nutrientSummaryOrCalSummary, setNutrientSummaryOrCalSummary] = useState("calorieSummary");
+
+    const switchBetweenSummaries = (e) => {
+        setNutrientSummaryOrCalSummary(e.target.value)
+    }
+
     return (
         <div>
             {findFoodClicked == false ? <div>
@@ -165,47 +222,65 @@ const DailyLog = (props) => {
                 <h2>{date}</h2>
                 <Link to={`/log/${futureDate}`} className="change-date-button">{`►`}</Link>
             </div>
-            <table className="log-table">
-                <tbody>
-                    <tr className="table-header-row">
-                        <th className="table-value">Budget</th>
-                        <th className="table-value">Food</th>
-                        <th className="table-value">Remaining</th>
-                    </tr>
-                    <tr className="table-value-row">
-                        <td className="table-value">{fetchedUserDetails.goal_calories}</td>
-                        <td className="table-value">{dailyCaloriesEaten}</td>
-                        <td className="table-value">{remainingCalories} cals.</td>
-                    </tr>
-                </tbody>
-            </table>
-                {/* <p>{parseInt(fetchedUserDetails.goal_calories)} - {dailyCaloriesEaten} = {remainingCalories} cals. remaining</p> */}
+            {nutrientSummaryOrCalSummary == "calorieSummary" ? <div className="daily-log-info">
+                <table className="log-table">
+                    <tbody>
+                        <tr className="table-header-row">
+                            <th className="table-value">Budget</th>
+                            <th className="table-value">Food</th>
+                            <th className="table-value">Remaining</th>
+                        </tr>
+                        <tr className="table-value-row">
+                            <td className="table-value">{fetchedUserDetails.goal_calories}</td>
+                            <td className="table-value">{dailyCaloriesEaten}</td>
+                            <td className="table-value">{remainingCalories} cals.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button className="log-summary-button" value="nutrientSummary" onClick={switchBetweenSummaries}>►</button>
+            </div>: 
             <div>
-                <h3>Breakfast</h3>
-                {mappedBreakfast}
-                <button value="breakfast" onClick={switchToFindFood}>Add Food</button>
-            </div>
-            <div>
-                <h3>Lunch</h3>
-                {mappedLunch}
-                <button value="lunch" onClick={switchToFindFood}>Add Food</button>
-            </div>
-            <div>
-                <h3>Dinner</h3>
-                {mappedDinner}
-                <button value="dinner" onClick={switchToFindFood}>Add Food</button>
-            </div>
-            <div>
-                <h3>Snack</h3>
-                {mappedSnack}
-                <button value="snack" onClick={switchToFindFood}>Add Food</button>
-            </div>
-            <NutrientSummary
+                <NutrientSummary
                 goalProtein={fetchedUserDetails.goal_protein}
                 goalCarbohydrate={fetchedUserDetails.goal_carbohydrate}
                 goalFat={fetchedUserDetails.goal_fat}
                 fetchedFoodData={fetchedFoodData}
+                switchBetweenSummaries={switchBetweenSummaries}
                 />
+            </div>}
+            <div>
+                <div className="meal-title-container">
+                    <h4 className="meal-title">Breakfast</h4>
+                    <p className="meal-calorie-value">{breakfastCalories} cals.</p>
+                    <button value="breakfast" onClick={switchToFindFood} className="add-button button">➕</button>
+                </div>
+                {mappedBreakfast}
+            </div>
+            <div>
+                <div className="meal-title-container">
+                    <h4 className="meal-title">Lunch</h4>
+                    <p className="meal-calorie-value">{lunchCalories} cals.</p>
+                    <button value="lunch" onClick={switchToFindFood} className="add-button button">➕</button>
+                </div>
+                {mappedLunch}
+            </div>
+            <div>
+                <div className="meal-title-container">
+                    <h4 className="meal-title">Dinner</h4>
+                    <p className="meal-calorie-value">{dinnerCalories} cals.</p>
+                    <button value="dinner" onClick={switchToFindFood} className="add-button button">➕</button>
+                </div>
+                
+                {mappedDinner}
+            </div>
+            <div className="log-snack-section">
+                <div className="meal-title-container">
+                    <h4 className="meal-title">Snack</h4>
+                    <p className="meal-calorie-value">{snackCalories} cals.</p>
+                    <button value="snack" onClick={switchToFindFood} className="add-button button">➕</button>
+                </div>
+                {mappedSnack}   
+            </div>
             </div> : 
             <FindFood
                 mealType={mealType}

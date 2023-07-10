@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    border-bottom: 2px solid rgb(163, 160, 160);
 }
 
 .change-date-button {
@@ -10,7 +11,100 @@
     font-size: 20px;
 }
 
+.change-date-button:hover {
+    color: chocolate;
+}
+
 .log-table {
     width: 100%;
 }
 
+.meal-title {
+    margin: 10px 0px 0px 15px;
+}
+
+.add-food-button {
+    margin-left: 10px;
+}
+
+.daily-log-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 2px solid rgb(163, 160, 160);
+}
+
+.log-summary-button {
+    border: none;
+    color: rgb(255, 237, 33);
+    font-size: 20px;
+    margin: none;
+
+}
+
+.log-summary-button:hover {
+    color:aqua;
+}
+
+.remove-button {
+    background-color: rgb(80, 107, 161);
+    border: none;
+    padding: 6px 10px 6px 10px;
+    margin-right: 3px;
+}
+
+.remove-button:hover {
+    background-color: chocolate;
+}
+
+.log-snack-section {
+    margin-bottom: 50px;
+}
+
+.food-title {
+    margin: 0;
+}
+
+.food-info {
+    font-size: 13px;
+    color: rgb(199, 201, 202);
+    margin: 0;
+}
+
+.collapsed-food-item {
+    margin-bottom: 5px;
+}
+
+.add-button {
+    padding: 4px 8px 4px 8px;
+    margin: 10px 10px 0px 15px;
+}
+
+.add-button:hover {
+    background-color: rgb(80, 107, 161);
+}
+
+.meal-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meal-calorie-value {
+    margin: 10px 0px 0px 15px;
+    font-size: 14px;
+    color: rgb(199, 201, 202);
+}
+
+.log-food-list-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid white; */
+}
+
+.log-food-list {
+    margin:2px;
+}

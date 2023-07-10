@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 
 const NutrientSummary = (props) => {
 
-    const {goalProtein, goalCarbohydrate, goalFat, fetchedFoodData} = props;
+    const {goalProtein, goalCarbohydrate, goalFat, fetchedFoodData, switchBetweenSummaries} = props;
 
     const [eatenMacronutrients, setEatenMacronutrients] = useState({
         carbohydrate: 0,
@@ -28,28 +28,32 @@ const NutrientSummary = (props) => {
     }, [fetchedFoodData])
 
     return (
-        <table>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <th>Carbohydrate</th>
-                    <th>Protein</th>
-                    <th>Fat</th>
-                </tr>
-                <tr>
-                    <th>Target</th>
-                    <td>{goalProtein}g</td>
-                    <td>{goalCarbohydrate}g</td>
-                    <td>{goalFat}g</td>
-                </tr>
-                <tr>
-                    <th>Current</th>
-                    <td>{eatenMacronutrients.carbohydrate}g</td>
-                    <td>{eatenMacronutrients.protein}g</td>
-                    <td>{eatenMacronutrients.fat}g</td>
-                </tr>
-            </tbody>
-        </table>
+        <div className="daily-log-info">
+            <button value="calorieSummary" className="log-summary-button" onClick={switchBetweenSummaries}>◄</button>
+            <table className="nutrient-summary-table">
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <th className="table-value">Carb.</th>
+                        <th className="table-value">Protein</th>
+                        <th className="table-value">Fat</th>
+                    </tr>
+                    <tr>
+                        <th>Target:</th>
+                        <td className="table-value">{goalProtein}g</td>
+                        <td className="table-value">{goalCarbohydrate}g</td>
+                        <td className="table-value">{goalFat}g</td>
+                    </tr>
+                    <tr>
+                        <th>Current:</th>
+                        <td className="table-value">{eatenMacronutrients.carbohydrate}g</td>
+                        <td className="table-value">{eatenMacronutrients.protein}g</td>
+                        <td className="table-value">{eatenMacronutrients.fat}g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
     )
 }
 

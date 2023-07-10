@@ -5,3 +5,9 @@
   background-color: rgb(44, 63, 82);
   color:rgb(255, 255, 255);
 }
+
+.button {
+  background-color: chocolate;
+  border-radius: 10px;
+  border: none;
+}
