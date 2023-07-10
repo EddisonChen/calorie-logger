@@ -47,8 +47,6 @@ const FindFood = (props) => {
 
     // upc https://api.edamam.com/api/food-database/v2/parser?app_id=932a20f2&app_key=%20577cb6b0089814cd8e636dd9c2fc554a%09&upc=026200117058&nutrition-type=logging&category=packaged-foods
 
-    
-
     return (
         <div>
             <div>
