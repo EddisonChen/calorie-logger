@@ -1,9 +1,7 @@
 package com.example.calocalcapi.Test;
 
 import com.example.calocalcapi.model.Users;
-import com.example.calocalcapi.repository.FoodsRepository;
 import com.example.calocalcapi.repository.UsersRepository;
-import com.example.calocalcapi.service.FoodsService;
 import com.example.calocalcapi.service.UsersService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
