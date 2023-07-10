@@ -45,7 +45,7 @@ const Home = (props) => {
 
     // console.log(user, user.sub)
     return (
-        <p>Welcome, {user.name}!</p>
+        <h2 className="welcome-message">Welcome, {user.name}!</h2>
     )
 }
 

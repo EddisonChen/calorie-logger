@@ -1,0 +1,73 @@
+.user-profile-header {
+    text-align: center;
+}
+
+
+.user-profile-input-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-profile-input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 3px;
+}
+
+.user-profile-input {
+    width: 60%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.user-profile-submit-button {
+    background-color: chocolate;
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+}
+
+.incomplete-form-message {
+    text-align: center;
+}
+
+.info-header {
+    text-align: center;
+    margin: 5px;
+}
+
+.info-statement {
+    margin: 10px;
+}
+
+.adjust-calories-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.adjust-calories-button {
+    background-color: chocolate;
+    font-size: 35px;
+    padding: 0px 20px 0px 20px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.adjust-calories-value {
+    font-size: 30px;
+}
+
+.macronutrients-table {
+    margin-bottom: 40px;
+    width: 100%
+}
+
+.table-value {
+    text-align: center;
+}
+
+.user-info-table {
+    margin-bottom: 10px;
+}

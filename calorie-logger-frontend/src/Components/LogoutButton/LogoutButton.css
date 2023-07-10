@@ -1,0 +1,11 @@
+.logout-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.logout-button {
+    background-color: chocolate;
+    border-radius: 10px;
+    margin: 5px;
+}

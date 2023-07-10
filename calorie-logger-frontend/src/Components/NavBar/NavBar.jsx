@@ -1,21 +1,15 @@
 import './NavBar.css';
-import { User } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 
-const NavBar = (props) => {
+const NavBar = () => {
 
     const currentDate = new Date().toLocaleDateString();
 
     return (
-        <nav>
-            {/* // profile info
-            // log
-            // nutrient info
-            // add food */}
-            <Link to="/">Home</Link>
-            <Link to="/userprofile">Profile</Link>
-            <Link to={`/log/${currentDate}`}>Daily Log</Link>
-            {/* {renderDailyLog} */}
+        <nav className="nav-bar">
+            {/* <Link to="/">Home</Link> */}
+            <Link to="/userprofile" className="nav-bar-item">PROFILE</Link>
+            <Link to={`/log/${currentDate}`} className="nav-bar-item">DAILY LOG</Link>
         </nav>
     )
 }
