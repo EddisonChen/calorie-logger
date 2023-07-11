@@ -1,4 +1,4 @@
-package com.example.calocalcapi.Test;
+package Test;
 
 import com.example.calocalcapi.model.Foods;
 import com.example.calocalcapi.repository.FoodsRepository;

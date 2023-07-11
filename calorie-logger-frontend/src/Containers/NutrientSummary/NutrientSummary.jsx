@@ -30,9 +30,9 @@ const NutrientSummary = (props) => {
     return (
         <div className="daily-log-info">
             <button value="calorieSummary" className="log-summary-button" onClick={switchBetweenSummaries}>◄</button>
-            <table className="nutrient-summary-table">
+            <table className="log-table">
                 <tbody>
-                    <tr>
+                    <tr className="table-header-row">
                         <td></td>
                         <th className="table-value">Carb.</th>
                         <th className="table-value">Protein</th>
