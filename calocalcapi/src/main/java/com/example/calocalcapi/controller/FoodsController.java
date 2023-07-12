@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.calocalcapi.model.Foods;
 import com.example.calocalcapi.service.FoodsService;
 
+// this class contains the endpoints that I access via my front-end to carry out the methods described in FoodsService
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")

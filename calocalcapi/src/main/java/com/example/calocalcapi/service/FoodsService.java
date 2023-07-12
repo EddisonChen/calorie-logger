@@ -14,6 +14,8 @@ import java.util.Optional;
 import com.example.calocalcapi.model.Users;
 import com.example.calocalcapi.repository.UsersRepository;
 
+// This is my FoodsService class which contains all the methods that I need in order to create, retrieve, update, and delete foods from the Foods table
+
 @Service
 public class FoodsService {
 

@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+// this is my FoodsRepository class, which contains custom methods used to update the Foods table, methods to get and delete based on different columns/variables.
+
 @Repository
 public interface FoodsRepository extends JpaRepository <Foods, Integer>{
     List<Foods> findAllByUserId(String userId);

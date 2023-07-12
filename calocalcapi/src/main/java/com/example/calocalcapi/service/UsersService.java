@@ -8,6 +8,8 @@ import com.example.calocalcapi.repository.UsersRepository;
 import java.util.List;
 import java.util.Optional;
 
+// This is my UsersService class which contains all the methods that I need in order to create, retrieve, update, and delete users from the Users table
+
 @Service
 public class UsersService {
 

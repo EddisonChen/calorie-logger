@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Optional;
 
+// This is the model entity for my foods table, which contains variables, getters, and setters for id, date, meal type, name, amount, calories, and other nutrition information.
+
 @Entity
 @Table(name="foods")
 public class Foods {

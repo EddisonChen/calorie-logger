@@ -9,7 +9,7 @@ const LoginButton = () => {
         <div className="login-page">
             <h2 className="login-page-title">Welcome to Calorimeter!</h2>
             <h3>Please log in to get started.</h3>
-            <button className="login-button" onClick={loginWithRedirect}>Log In</button>
+            <button className="login-button button" onClick={loginWithRedirect}>Log In</button>
         </div>
     )
 }

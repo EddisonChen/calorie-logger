@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+// this is the model entity for my users table which contains variables, getters, and setters for id, name email, sex, and their bodily information.
+
 @Entity
 @Table(name="users")
 public class Users {

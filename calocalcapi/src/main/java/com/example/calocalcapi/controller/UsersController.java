@@ -12,6 +12,8 @@ import com.example.calocalcapi.service.UsersService;
 import java.util.List;
 import java.util.Optional;
 
+// this class contains the endpoints that I access via my front-end to carry out the methods described in UsersService
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
